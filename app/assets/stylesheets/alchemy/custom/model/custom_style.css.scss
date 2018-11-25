@@ -1,0 +1,228 @@
+.base_form_container {
+
+  .category_tree {
+
+    &.sortable, &.margined {
+      padding-top: 100px;
+    }
+
+    &.sortable_products.margined {
+      padding-top: 5px;
+    }
+
+    .category_block, .product_block {
+
+      height: 32px;
+      margin: 12px 0;
+      position: relative;
+      transition: background-color 250ms;
+
+      &:hover {
+        background-color: rgba(251, 251, 216, 0.5);
+        border-radius: 3px;
+      }
+
+      .icon {
+        position: relative;
+        width: 32px;
+        line-height: 32px;
+        float: left;
+        padding: 0 8px;
+        text-align: center;
+      }
+
+      .category, .product {
+        border-bottom-left-radius: 3px;
+        border-top-left-radius: 3px;
+        line-height: 28px;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.75);
+
+        .name {
+          display: block;
+          padding: 0 10px;
+          margin: 2px;
+          text-decoration: none;
+        }
+
+        &.disabled {
+          background-color: #efefef;
+        }
+      }
+
+      .right_tools {
+        height: 32px;
+        padding: 0 8px;
+        float: right;
+
+        .tool {
+          float: left;
+          width: 32px;
+          height: 32px;
+          line-height: 32px;
+          text-align: center;
+          margin: 0;
+          position: relative;
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .form_in_page {
+    width: 80% !important;
+
+    form .control-label {
+      width: 15%;
+    }
+
+    form {
+      input[type="url"],
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      textarea,
+      .select2-container,
+      .mce-tinymce,
+      .with-hint{
+        width: 85%;
+      }
+      .tinymce_container {
+        width: 85%;
+        float: left;
+      }
+      .input.boolean {
+        margin-left: 15%;
+      }
+    }
+
+    /*form {
+
+      .input {
+        margin: 5px 0px 5px 0px;
+        padding: 0px 5px;
+
+        label {
+          display: block;
+          float: none;
+          text-align: left;
+          width: 100%;
+        }
+
+        input,textarea, select, .select2-container{
+          float: none;
+        }
+
+        select {
+          width: 65%;
+          margin: 4px 0;
+        }
+
+        input[type='checkbox'] {
+          float: left;
+        }
+
+        .tinymce_container {
+          float: none;
+        }
+      }
+    } */
+
+    .subobjects {
+
+      .sub_objects_container {
+        margin-top: 10px;
+      }
+
+      .subobject_row.sample {
+        display: none;
+      }
+
+      legend {
+        float: left;
+        line-height: 35px;
+        margin-right: 10px;
+        width: 100%;
+      }
+      .buttons {
+        text-align: right;
+      }
+      .subobject_row {
+        background-color: #d8d8d8;
+        margin-bottom: 10px;
+        padding-right: 10px;
+        padding-top: 3px;
+        overflow: hidden;
+        border-radius: 3px;
+        border: 1px solid #c0c0c0;
+      }
+
+      .remove {
+        .icon_button {
+          i {
+            color: red;
+          }
+        }
+      }
+    }
+  }
+
+  .field_with_errors {
+    .error {
+      display: block;
+      color: #a23434;
+      padding-left: 15%;
+    }
+  }
+
+  .after_save_messages{
+    margin-left: 15%;
+  }
+
+}
+
+.main_navi_entry {
+  line-height: 25px;
+}
+
+.form_cloner{
+  .error{
+    padding-left: 35%;
+    color: #a23434;
+  }
+}
+
+.alchemy-dialog-container{
+  .base-errors{
+    color: #a23434;
+  }
+}
+
+#toolbar{
+  .current_site_language{
+    position: absolute;
+    right: 255px;
+    top: 13px;
+    color: rgba(51, 59, 81, 0.8);
+
+    strong{
+      font-size: 15px;
+    }
+  }
+}
+
+
+.edit_ingredients{
+
+  .preparation{
+    padding: 15px;
+
+    fieldset{
+
+      .text{
+        padding-left: 15px
+      }
+    }
+  }
+}
+

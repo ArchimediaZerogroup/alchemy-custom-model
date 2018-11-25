@@ -1,0 +1,114 @@
+.elfinder_picture_gallery {
+  .blk_container_immagini {
+    background-color: #d8d8d8;
+    width: 85%;
+    display: block;
+    float: left;
+    .gallery_item_blk {
+      display: block;
+      float: left;
+      margin: 6px;
+      width: 100px;
+      height: 100px;
+      overflow: hidden;
+      .open_el_finder {
+        width: 98%;
+        height: 98%;
+        margin: auto;
+        display: block;
+        background-color: rgba(236, 169, 110, 0.75);
+        text-align: center;
+        i.fa-images {
+          font-size: 50px;
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}
+
+.elfinder_picture_thumbnail {
+
+  margin: 8px;
+  background-color: #fff;
+  display: inline-block;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(175, 175, 175, 0.5);
+  width: 160px;
+  height: 140px;
+
+  .picture_image {
+    height: 100px;
+    width: 100px;
+    display: block;
+    margin: 5px auto 5px auto;
+
+  }
+
+  .edit_images_bottom {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+    width: 100%;
+    padding: 4px 2px;
+    background-color: #f0f0f0;
+    a {
+      margin: 0 2px;
+      padding: 2px;
+      cursor: pointer;
+    }
+  }
+
+}
+
+/* Nascondo il pulsante save_as nell'editing di un'immagine */
+.elfinder-dialog {
+  .ui-dialog-buttonset {
+    .elfinder-btncnt-1 {
+      display: none;
+    }
+  }
+}
+
+.elfinder_attachment {
+  margin: 8px;
+  background-color: #fff;
+  display: inline-block;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(175, 175, 175, 0.5);
+  width: 80px;
+  height: 80px;
+
+  .attachment_file {
+    height: 50px;
+    width: 50px;
+    display: block;
+    margin: 5px auto 5px auto;
+
+  }
+
+  .container_icon_container{
+    padding:3px;
+  }
+
+  .edit_file_bottom {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+    width: 100%;
+    padding: 4px 2px;
+    background-color: #f0f0f0;
+    a {
+      margin: 0 2px;
+      padding: 2px;
+      cursor: pointer;
+    }
+  }
+
+}
