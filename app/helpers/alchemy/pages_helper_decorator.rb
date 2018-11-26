@@ -1,5 +1,7 @@
 Alchemy::PagesHelper.module_eval do
 
+  include CustomModelHelper
+
   def page_title(options = {})
     return "" if !@custom_element.nil? and @custom_element.respond_to? :meta_title and
         @custom_element.meta_title.presence and @page.title.blank?

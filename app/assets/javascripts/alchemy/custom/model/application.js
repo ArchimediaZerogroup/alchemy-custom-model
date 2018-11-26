@@ -10,6 +10,12 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
-//= require activestorage
-//= require_tree .
+//= require_tree "el_finder"
+//= require_tree "custom_admin_element_editor"
+//= require_tree "total_page_elfinder"
+//= require_tree "custom_tiny_mce"
+//= require_tree "nested_attributes_sortable"
+//= require_tree "subobjects"
+//= require_tree "select2filter"
+//= require_tree "change_language"
+//= require_tree "common_init"

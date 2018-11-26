@@ -1,0 +1,241 @@
+#= require elfinder/js/elfinder.full
+# require js-routes
+#= require 'eventemitter3/umd/eventemitter3'
+
+##
+# Classe di elfinder per autoconfigurarsi rispetto a determinate opzioni
+# mode: Modalità di selezione:
+#   - single_selection   -> indica la selezione singola
+#   - multiple_selection -> selection multipla dei files
+# volumes            -> Elenco dei volumi da montare come stringa divisa da ,
+#                       AlchemyImages      -> solo immagini
+#                       AlchemyFiles       -> solo attachments
+#                       non settato        -> tutti -> Alchemy
+#                       nome_inventato     -> dovrà avere la relativa configurazione nella volumes_cfgs e le informazioni
+#                                             per identificare correttamente che volume montare
+# volumes_cfgs       -> oggetto con configurazioni per i volumi
+#                       l'oggetto dovrà essere composto da chiave=nome del volume usato in volumes e un oggetto con
+#                       le configurazioni:
+#                       {
+#                         - volume      = nome del volume da utilizzare in ruby come connettore
+#                         - attribute   = attributo nell'oggetto a cui si riferisce il collegamento del volume
+#                         - object      = oggetto identificato con un global_id signed
+#                       }
+#
+class ElFinderConfigurator
+
+  constructor: (opts)->
+    @ee = new EventEmitter3;
+
+    {@mode, @volumes, @volumes_cfgs}=opts
+
+    @mode = opts.mode ? 'single_selection'
+    @volumes = opts.volumes ? null
+    @volumes_cfgs = opts.volumes_cfgs ? null
+
+    @height = opts.height ? 400 #TODO automatizzare dinamicamente l'altezza?
+
+    @el_finder = null
+
+  start: (container)->
+    @el_finder = container.elfinder(@configurations())
+    @attach_events()
+
+  configurations: ->
+    cfgs = {
+      url: Routes.admin_elfinder_path()
+#lang: 'it',
+      cssAutoLoad: false               # Disable CSS auto loading
+      baseUrl: './'
+      height: @height,
+      commands: ['*'],
+      soundPath:'<%= asset_path('/assets/elfinder/sounds') %>',
+      reloadClearHistory: true
+      rememberLastDir: false
+      useBrowserHistory: false
+      commandsOptions:
+        search:
+          incsearch:
+            enable: false # // is enable true or false
+#            minlen: 1 #    // minimum number of characters
+#            wait: 10000 #  // wait milliseconds
+          searchTypes:
+            SearchMime: #           // The key is search type that send to the connector
+              name: 'btnMime'#    // Button text to be processed in i18n()
+              title: 'searchMime' #// Button title to be processed in i18n()
+            AlchemyTags:
+              name: 'Alchemy Tags'
+              title: 'Ricerca per tags di alchemy'
+      uiOptions: {
+        toolbar: [
+#['home', 'back', 'forward', 'up', 'reload'],
+#['netmount'],
+#['mkdir', 'mkfile', 'upload'],
+          ['upload'],
+          ['open', 'download', 'getfile'],
+          #['undo', 'redo'],
+          ['rm'],
+          #['copy', 'cut', 'paste', 'rm', 'empty', 'hide'],
+          ['duplicate', 'rename', 'edit', 'resize'], #, 'chmod'
+          ['selectall', 'selectnone', 'selectinvert'],
+          ['quicklook'], #, 'info'
+          #['extract', 'archive'],
+          ['search'],
+          ['view', 'sort'],
+          #['preference', 'help'],
+          #['fullscreen']
+        ]
+      }
+    }
+
+    if(@volumes)
+      cfgs.customData = cfgs.customData || {}
+      cfgs.customData['volumes'] = @volumes.split(',')
+      if(@volumes_cfgs)
+        cfgs.customData['volumes_cfgs'] = @volumes_cfgs
+
+    if(@mode == 'single_selection')
+      cfgs.getFileCallback = (file, fm)=>
+        @emit('file_select', file, fm)
+
+    cfgs
+
+  attach_events: ()->
+    @elfinder_instance().bind 'paste', (event, fm)=>
+      @emit('paste_files', event, fm)
+      @emit('change', event, fm)
+    @elfinder_instance().bind 'upload', (event,fm)=>
+      @emit('upload', event, fm)
+    @elfinder_instance().bind 'remove', (event, fm)=>
+      @emit('remove_files', event, fm)
+      @emit('change', event, fm)
+
+
+  on: ()->
+    @ee.on.apply(@ee, arguments)
+
+  once: ()->
+    @ee.once.apply(@ee, arguments)
+
+  emit: ()->
+    @ee.emit.apply(@ee, arguments)
+
+  remove: ()->
+    @el_finder.remove();
+
+  elfinder_instance: ()->
+    @el_finder.elfinder('instance')
+
+@ElFinderConfigurator = ElFinderConfigurator
+
+##
+# Classe per la gestione e configurazione di elfinder e della sua apertura in modal
+#
+# Configurazioni presenti su data dell'activator(bottone o altro che lancia l'evento di el finder)
+#
+# elfinderTarget             -> indica la input in cui posizionare il valore selezionato nella single selection
+#                               oppure il selector da utilizzare per rimpiazzare con il contenuto proveniente dal
+#                               partial generato
+#
+# elfinderThumbTarget        -> tag in cui settare la src con la thumb dell'immagine
+#
+# elfinderMimeIconUpdater    -> selettore css dove applicare le classi di elfinder per l'incona dell'imagine
+#
+#
+# Configurazioni che vengono riportare poi verso ElFinderConfigurator
+# elfinderMode: Modalità di selezione:
+#   - single_selection   -> indica la selezione singola
+#   - multiple_selection -> selection multipla dei files
+# elfinderVolumes            -> Elenco dei volumi da montare
+#                       AlchemyImages      -> solo immagini
+#                       AlchemyFiles       -> solo attachments
+#                       non settato        -> tutti -> Alchemy
+class ElFinderDialog
+
+  constructor: (@activator)->
+    options = $(@activator).data()
+
+    @opts = {
+      target: options['elfinderTarget'],
+      thumb_target: options['elfinderThumbTarget'],
+      mime_icon_updater: options['elfinderMimeIconUpdater']
+      target_upgrader: options['elfinderTargetUpgrader']
+    }
+
+    @elfinder = new ElFinderConfigurator({
+      mode: options['elfinderMode'],
+      volumes: options['elfinderVolumes'],
+      volumes_cfgs: options['elfinderVolumesCfgs'],
+      height: 700
+    })
+
+    @dialog_container = $("<div><div class='el_finder'></div></div>")
+    $('body').append(@dialog_container)
+
+
+  attach_events: ()->
+    if(@elfinder.mode == 'single_selection')
+      @elfinder.once('file_select', (file, fm)=>
+        $(@opts.target).val(file.global_id)
+        if(@opts.thumb_target)
+          $(@opts.thumb_target).attr('src', file.tmb)
+        if(@opts.mime_icon_updater)
+          $(@opts.mime_icon_updater).attr('class', '').addClass("elfinder-cwd-icon #{fm.mime2class(file.mime)}")
+
+        @close()
+      )
+
+    if(@elfinder.mode == 'multiple_selection')
+      @elfinder.on 'change', (event)=>
+        reload_target_url.call(this)
+
+      @elfinder.on 'upload', (event)=>
+        reload_target_url.call(this)
+
+  reload_target_url = ->
+    $.ajax
+      url: @opts.target_upgrader
+      success: (data)=>
+        elemento_gallery = $(data).find(@opts.target)
+        $(@opts.target).html($(elemento_gallery).html())
+
+
+  open: ->
+    @dialog_container.dialog
+      width: $(document).width() * 0.7
+      modal: true
+      position: { my: "top", at: "top", of: window }
+
+      open: ()=>
+        @elfinder.start(@dialog_container.find('.el_finder'))
+        @attach_events()
+
+
+  close: ->
+    @elfinder.remove();
+    @dialog_container.dialog('close').dialog("destroy");
+
+
+$(document).on 'click', '.open_el_finder', (e)->
+  e.preventDefault()
+  dialog = new ElFinderDialog(this)
+  dialog.open();
+
+
+##
+# Pulizia selezione
+$(document).on 'click', '.clear_selection', (e)->
+  e.preventDefault()
+  opts = $(this).data();
+  $(opts.clearfieldTarget).val(null)
+  if(opts.clearfieldThumbTarget)
+    $(opts.clearfieldThumbTarget).attr('src', opts.clearfieldThumbTargetReplace)
+  if(opts.clearfieldIcon)
+    $(opts.clearfieldIcon).attr('class','')
+
+
+
+
+
+
+
