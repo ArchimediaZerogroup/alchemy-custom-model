@@ -1,90 +1,180 @@
 module Admin
-  class CustomModelsController < ::Alchemy::Admin::ResourcesController
-    helper_method :switch_lang_path
-    before_action :load_languages
+  class CustomModelsController < Alchemy::Admin::BaseController
 
-    include FriendlyLoader
+    before_action :authorize_resource
+    before_action :clean_slug, only: [:create, :update]
+    before_action :set_language, unless: -> {params[:language_id].nil?}
+    before_action :load_object, except: :index
 
-    def update
-      resource_instance_variable.alchemy_element.update_contents(contents_params)
-      super
-    end
+    helper_method :base_class
+    helper_method :table_columns
 
-    def create
-      instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new(resource_params))
-      instance_variable_get("@#{resource_handler.resource_name}").language_id = Alchemy::Language.current.id
-      resource_instance_variable.save
-      render_errors_or_redirect(
-          resource_instance_variable,
-          resources_path(resource_handler.namespaced_resources_name, current_location_params),
-          flash_notice_for_resource_action
-      )
-    end
 
     def index
-      @query = resource_handler.model.ransack(params[:q])
-      items = @query.result
-
-      if contains_relations?
-        items = items.includes(*resource_relations_names)
-      end
-
-      if params[:tagged_with].present?
-        items = items.tagged_with(params[:tagged_with])
-      end
-
-      if params[:filter].present?
-        items = items.public_send(sanitized_filter_params)
-      end
-
-      items = items.only_current_language
-
-
-      respond_to do |format|
-        format.html {
-          items = items.page(params[:page] || 1).per(per_page_value_for_screen_size)
-          instance_variable_set("@#{resource_handler.resources_name}", items)
-        }
-        format.csv {
-          instance_variable_set("@#{resource_handler.resources_name}", items)
-        }
-      end
+      @query = base_class.ransack(params[:q])
+      @objects = @query.result(distinct: true)
+      @objects = @objects.accessible_by(current_ability).only_current_language
+      @objects = @objects.page(params[:page]).
+          per(params[:per_page] ||
+                  (base_class::DEFAULT_PER_PAGE if base_class.const_defined? :DEFAULT_PER_PAGE) ||
+                  25)
+      instance_variable_set "@#{base_class.name.demodulize.underscore.downcase.pluralize}", @objects
     end
 
+    def new
 
-    def switch_language
-      set_alchemy_lale#bang
-      # anguage(params[:language_id])
-      Rails.logger.debug {"Lingua i18n: #{I18n.locale}"}
-      Rails.logger.debug {"Lingua Alchemy: #{Alchemy::Language.current.language_code}"}
-      redirect_to switch_lang_redirect
     end
 
     def edit
-      if resource_instance_variable.alchemy_element.nil?
-        resource_instance_variable.initialize_essence_elements
+
+    end
+
+    def update
+      if @obj.update_attributes(clean_params)
+        after_successfull_update
+      else
+        atfer_unsuccessfull_update
       end
-      super
+    end
+
+    def destroy
+      if @obj.destroy
+        after_successful_destroy
+      else
+        after_unsuccessful_destroy
+      end
+    end
+
+    def create
+      if @obj.update_attributes(clean_params)
+        after_successfull_create
+      else
+        atfer_unsuccessfull_create
+      end
+
+    end
+
+
+    class << self
+
+      mattr_accessor :parent_model_name, :parent_klass, :parent_find_method
+
+      def belongs_to(model_name, options = {})
+        prepend_before_action :load_parent
+        const_model_klass = options[:model_klass].to_s.constantize unless options[:model_klass].nil?
+        self.parent_model_name = model_name.to_s
+        self.parent_klass = const_model_klass || self.parent_model_name.to_s.classify.constantize
+        self.parent_find_method = options[:find_by].to_s || "id"
+      end
     end
 
 
     private
-    def contents_params
-      params.fetch(:contents, {}).permit!
+
+    def table_columns
+      base_class.columns.collect(&:name).collect {|c| c.to_sym}.reject do |c|
+        [
+            :created_at,
+            :updated_at,
+            :id,
+            :language_id,
+            :meta_keywords,
+            :meta_description,
+            :meta_title,
+            :robot_follow,
+            :robot_index
+        ].include? c
+      end
+    end
+
+    def base_class
+      raise 'to_override'
+    end
+
+    def load_object
+      if params[:id]
+        if base_class.respond_to? :friendly
+          @obj = base_class.friendly.find(params[:id])
+        else
+          @obj = base_class.find(params[:id])
+        end
+      else
+        @obj = base_class.new
+      end
+      instance_variable_set("@#{base_class.name.demodulize.underscore.downcase.singularize}", @obj)
+    end
+
+    def resource_instance_variable
+      @obj
     end
 
 
-    def load_languages
-      @languages = Alchemy::Language.on_current_site
+    def authorize_resource
+      authorize!(action_name.to_sym, @obj || base_class)
+    end
+
+    def permitted_attributes
+      base_class.attribute_names.collect {|c| c.to_sym}
+    end
+
+    def clean_params
+      dati = params.required(base_class.name.underscore.gsub('/', '_').to_sym).permit(permitted_attributes)
+      ::Rails.logger.info {"Permitted Attributes: #{permitted_attributes.inspect}"}
+      ::Rails.logger.info {"Parametri puliti: #{dati.inspect}"}
+      dati
+    end
+
+    def clean_slug
+      slug = params[base_class.name.underscore.gsub('/', '_').to_sym][:slug]
+      if slug.blank?
+        params[base_class.name.underscore.gsub('/', '_').to_sym].delete(:slug)
+      end
+    end
+
+    def after_successful_destroy
+      redirect_to polymorphic_path([:admin,@obj.class]), notice: t(:record_succesfully_destroy, model: @obj.class.model_name.human)
+    end
+
+    def after_unsuccessful_destroy
+      redirect_to polymorphic_path([:admin, @obj.class]), error: t(:record_unsuccesfully_destroy, model: @obj.class.model_name.human)
+    end
+
+    def after_successfull_update
+      redirect_to polymorphic_path([:admin, @obj.class]), notice: t(:record_succesfully_update, model: @obj.class.model_name.human)
+    end
+
+    def atfer_unsuccessfull_update
+      render :edit
+    end
+
+    def after_successfull_create
+      redirect_to polymorphic_path([:admin, @obj.class]), notice: t(:record_succesfully_create, model: @obj.class.model_name.human)
+    end
+
+    def atfer_unsuccessfull_create
+      render :new
     end
 
 
-    def switch_lang_path
-      raise "Override"
+    def set_language
+      set_alchemy_language(params[:language_id])
     end
 
-    def switch_lang_redirect
-      raise "Override"
+
+    def load_parent
+      unless self.class.parent_model_name.blank?
+        @parent = self.class.parent_klass.
+            find_by("#{self.class.parent_find_method.to_s}": params["#{parent_model_name_demodulized}_id"])
+
+        instance_variable_set("@#{parent_model_name_demodulized}", @parent)
+      end
     end
+
+    def parent_model_name_demodulized
+      self.class.parent_model_name.
+          classify.demodulize.underscore
+    end
+
+
   end
 end
