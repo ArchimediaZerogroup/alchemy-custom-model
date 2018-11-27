@@ -26,6 +26,23 @@ Then run the installer
 bin/rails  alchemy_custom_model:install
 ```
 
+## Usage
+
+* Generate your model
+* attach yours belongs_to relations to alchemy_elements
+```ruby
+
+    # For attachments
+    belongs_to :file, class_name: "Alchemy::Attachment", optional: true, foreign_key: :attachment_id
+    global_id_setter :file
+
+    # For Pictures
+    belongs_to :picture, class_name: 'Alchemy::Picture', optional: true, touch: true
+    global_id_setter :picture
+```
+
+
+
 ## Contributing
 Contribution directions go here.
 
