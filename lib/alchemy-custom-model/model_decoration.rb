@@ -4,6 +4,8 @@ module Alchemy::Custom::Model
 
     included do
 
+      include GlobalIdSetter
+
       belongs_to :language, class_name: "Alchemy::Language"
 
 

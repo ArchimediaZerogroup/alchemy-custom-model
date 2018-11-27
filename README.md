@@ -46,8 +46,25 @@ bin/rails  alchemy_custom_model:install
     belongs_to :picture, class_name: 'Alchemy::Picture', optional: true, touch: true
     global_id_setter :picture
 ```
+* Generate your controller:
+```ruby
+    bin/rails g controller Admin::Posts
+```
+* inherit from Alchemy::Custom::Model::Admin::BaseController
 
-
+* build the abilities in ad initializer Es: "menu_and_abilities.rb"
+```ruby
+    Alchemy::Modules.register_module({
+                                         name: 'Posts', # custom name
+                                         order: 2,
+                                         navigation: {
+                                             name: 'modules.posts',
+                                             controller: '/admin/posts', #controller path
+                                             action: 'index', #action
+                                             icon: "question" # custom icon
+                                         }
+                                     })
+```
 
 ## Contributing
 Contribution directions go here.
