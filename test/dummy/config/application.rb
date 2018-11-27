@@ -3,7 +3,7 @@ require_relative 'boot'
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "alchemy/custom/model"
+require "alchemy-custom-model"
 
 module Dummy
   class Application < Rails::Application

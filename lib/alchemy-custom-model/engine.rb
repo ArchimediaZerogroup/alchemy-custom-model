@@ -13,6 +13,11 @@ module Alchemy
 
         end
 
+
+        # initializer "alchemy_richmedia_essences.register_ability" do
+        #   Alchemy.register_ability Alchemy::Richmedia::Essences::Ability
+        # end
+
       end
     end
   end

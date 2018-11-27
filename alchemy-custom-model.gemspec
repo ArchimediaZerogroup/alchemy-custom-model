@@ -1,7 +1,7 @@
 $:.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
-require "alchemy/custom/model/version"
+require "alchemy-custom-model/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
