@@ -13,3 +13,9 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+##
+# Gemme per il dummy
+gem 'sass-rails'
+gem 'sqlite3'
+gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
