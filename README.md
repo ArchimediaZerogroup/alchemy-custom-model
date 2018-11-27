@@ -1,4 +1,4 @@
-# Alchemy::Custom::Model
+# Alchemy::Custom::Model [WIP]
 Short description and motivation.
 
 ## Usage
