@@ -29,11 +29,17 @@ bin/rails  alchemy_custom_model:install
 ## Usage
 
 * Generate your model
+* include the model decorator
+```ruby
+
+     include Alchemy::Custom::Model::ModelDecoration
+
+```
 * attach yours belongs_to relations to alchemy_elements
 ```ruby
 
-    # For attachments
-    belongs_to :file, class_name: "Alchemy::Attachment", optional: true, foreign_key: :attachment_id
+    # For attachments, the foreign_key is the key defined in the model, can be omitted if it's standard Rails naming
+    belongs_to :file, class_name: "Alchemy::Attachment", optional: true, foreign_key: :file_id
     global_id_setter :file
 
     # For Pictures

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_27_104815) do
+ActiveRecord::Schema.define(version: 2018_11_27_142144) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -344,6 +344,14 @@ ActiveRecord::Schema.define(version: 2018_11_27_104815) do
     t.integer "taggings_count", default: 0, null: false
     t.index ["name"], name: "index_gutentag_tags_on_name", unique: true
     t.index ["taggings_count"], name: "index_gutentag_tags_on_taggings_count"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "name"
+    t.integer "picture_id"
+    t.integer "file_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "taggings", force: :cascade do |t|
