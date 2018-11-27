@@ -21,6 +21,11 @@ Or install it yourself as:
 $ gem install alchemy-custom-model
 ```
 
+Then run the installer
+```bash
+bin/rails  alchemy_custom_model:install
+```
+
 ## Contributing
 Contribution directions go here.
 

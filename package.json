@@ -1,0 +1,13 @@
+{
+  "name": "alchemy-custom-model",
+  "version": "0.1.0",
+  "description": "Assets Dependency for gem alchemy_custom_model",
+  "main": "index.js",
+  "repository": "https://github.com/ArchimediaZerogroup/alchemy-custom-model.git",
+  "author": "Marino Bonetti <marinobonetti@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "eventemitter3": "^3.1.0",
+    "lodash": "^4.17.11"
+  }
+}

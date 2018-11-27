@@ -1,5 +1,7 @@
 {
   "name": "dummy",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "alchemy-custom-model": "^0.1.0"
+  }
 }
