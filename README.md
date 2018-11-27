@@ -70,6 +70,9 @@ bin/rails  alchemy_custom_model:install
 Contribution directions go here.
 
 git clone --recursive git@github.com:ArchimediaZerogroup/alchemy-custom-model.git
+cd test/dummy
+bundle install
+yarn
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
