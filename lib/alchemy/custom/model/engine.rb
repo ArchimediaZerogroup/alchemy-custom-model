@@ -9,7 +9,7 @@ module Alchemy
 
         initializer "alchemy_custom_model.assets.precompile" do |app|
           app.config.assets.precompile << 'alchemy_custom_model_manifest.js'
-          app.config.assets.paths << config.root.join("vendor", "elfinder")
+          app.config.assets.paths << config.root.join("vendor")
 
         end
 
