@@ -5,8 +5,8 @@ Rails.application.routes.draw do
     resources :posts
   end
 
-  
- mount Alchemy::Custom::Model::Engine => '/alchemy-custom-model'
-mount Alchemy::Engine => '/'
+
+  mount Alchemy::Custom::Model::Engine => '/alchemy-custom-model'
+  mount Alchemy::Engine => '/'
 
 end
