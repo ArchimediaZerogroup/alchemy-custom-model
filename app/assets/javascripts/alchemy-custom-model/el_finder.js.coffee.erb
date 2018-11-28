@@ -43,7 +43,7 @@ class ElFinderConfigurator
 
   configurations: ->
     cfgs = {
-      url: Routes.admin_elfinder_path()
+      url:'<%= Alchemy::Custom::Model::Engine.routes.url_helpers.admin_elfinder_path() %>'
 #lang: 'it',
       cssAutoLoad: false               # Disable CSS auto loading
       baseUrl: './'

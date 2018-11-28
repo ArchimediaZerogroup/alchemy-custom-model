@@ -47,7 +47,7 @@ $.extend CustomTinyMce,
         volumes.push('AlchemyImages');
 
       tinymce.activeEditor.windowManager.open({
-        file: Routes.admin_elfinder_ui_path(volumes:volumes), #// use an absolute path!
+        file: '<%= Alchemy::Custom::Model::Engine.routes.url_helpers.admin_elfinder_ui_path() %>?'+$.param({volumes:volumes}),# Routes.admin_elfinder_ui_path(volumes:volumes), #// use an absolute path!
         title: 'elFinder 2.1',
         width: 900,
         height: 450,

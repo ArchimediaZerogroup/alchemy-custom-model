@@ -55,7 +55,7 @@ bin/rails  alchemy_custom_model:install
     bin/rails g controller Admin::Posts
 ```
 * inherit from Alchemy::Custom::Model::Admin::BaseController
-* Create the routes (prepend it to alchemy routes)
+* Create the routes (prepend it to alchemy routes and  alchemy_custom_model routes)
 * Build the ability for your recipe:
 ```ruby
   class PostAbility
