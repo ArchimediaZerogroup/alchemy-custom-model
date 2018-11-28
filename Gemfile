@@ -20,3 +20,6 @@ gem 'sass-rails'
 gem 'sqlite3'
 gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
 gem 'alchemy_i18n', github: 'AlchemyCMS/alchemy_i18n', branch: 'master'
+
+gem 'better_errors'
+gem 'binding_of_caller'
