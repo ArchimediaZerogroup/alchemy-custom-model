@@ -1,0 +1,33 @@
+<% if @objects.any? %>
+    <table class="<%= "model_#{base_class.name.underscore.gsub("/", "_")}" %> list"
+           id="<%= base_class.name.underscore.gsub("/", "_") %>_list">
+      <thead>
+      <tr>
+        <% table_columns.each do |attribute| %>
+            <th class="colum_header <%= attribute.to_s %>">
+              <%= t(base_class.human_attribute_name(attribute)) %>
+            </th>
+        <% end %>
+        <th class="tools"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @objects.each do |obj| %>
+          <tr>
+            <% table_columns.each do |field| %>
+                <td class="custom-model-row <%= field.to_s %>">
+                  <%= render_obj obj, field %>
+                </td>
+            <% end %>
+            <td class="tools">
+
+              <%= render partial: "buttons_tool", locals: {obj: obj} %>
+
+
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+

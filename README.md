@@ -29,6 +29,10 @@ bin/rails  alchemy_custom_model:install
 ## Usage
 
 * Generate your model
+** remember to append a column for language:
+```ruby
+        t.integer :language_id
+```
 * include the model decorator
 ```ruby
 

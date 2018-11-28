@@ -1,0 +1,19 @@
+<% if base_class.respond_to? :fields_for_search %>
+  <%
+    field_search = base_class.fields_for_search.join("_or_")
+    field_search += "_cont"
+  %>
+  <%= search_form_for @query, url: url, class: 'search_form' do |f| %>
+    <div class="search_field">
+      <%= render_icon('search') %>
+      <%= f.search_field field_search.to_sym,
+                         class: 'search_input_field',
+                         placeholder: Alchemy.t(:search) %>
+      <%= link_to render_icon(:times, size: 'xs'), url,
+                  class: 'search_field_clear',
+                  id: 'search_field_clear',
+                  title: Alchemy.t(:click_to_show_all),
+                  style: params.fetch(:q, {}).present? ? 'display: block' : 'display: none' %>
+    </div>
+  <% end %>
+<% end %>

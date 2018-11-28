@@ -1,0 +1,39 @@
+<% content_for(:toolbar) do %>
+  <%= render 'alchemy/admin/partials/site_select' %>
+  <%= render 'language_tree_select' %>
+  <%= print_current_site_language %>
+  <%= render partial: 'search_box', locals: {url: polymorphic_path(url_namespace), base_class: base_class} %>
+<% end %>
+
+<% toolbar(
+     buttons: [
+       {
+         icon: :plus,
+         label: t(:title_action, action: t(:new, scope: :actions), model: base_class.model_name.human),
+         url: new_polymorphic_path(url_namespace),
+         title: t(:title_action, action: t(:new, scope: :actions), model: base_class.model_name.human),
+         hotkey: 'alt+n',
+         dialog: false,
+         if_permitted_to: [:create, base_class]
+       }
+     ],
+     search: false,
+   ) %>
+
+
+<%= base_container do %>
+
+  <div id="archive_all" class="resources-table-wrapper">
+
+    <%= content_tag :h1, "#{@objects.count} #{base_class.model_name.human(count: @objects.count)}", class: 'resources-header' %>
+
+
+    <%= render partial: "table" %>
+
+    <%= paginate @objects, theme: 'alchemy', hide_per_page_select: true %>
+
+  </div>
+
+<% end %>
+
+

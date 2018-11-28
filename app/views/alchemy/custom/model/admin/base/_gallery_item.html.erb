@@ -1,0 +1,4 @@
+<div class="gallery_item_blk">
+  <%= image_tag(picture.image_file.thumb("100x100#").url) %>
+  <%= yield if block_given? %>
+</div>

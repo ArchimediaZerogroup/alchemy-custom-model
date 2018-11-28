@@ -9,6 +9,7 @@ module Alchemy::Custom::Model
 
       helper_method :base_class
       helper_method :table_columns
+      helper_method :url_namespace
 
 
       def index
@@ -32,9 +33,9 @@ module Alchemy::Custom::Model
 
       def update
         if @obj.update_attributes(clean_params)
-          after_successfull_update
+          after_successful_update
         else
-          atfer_unsuccessfull_update
+          atfer_unsuccessful_update
         end
       end
 
@@ -48,7 +49,7 @@ module Alchemy::Custom::Model
 
       def create
         if @obj.update_attributes(clean_params)
-          after_successfull_create
+          after_successful_create
         else
           atfer_unsuccessfull_create
         end
@@ -89,7 +90,11 @@ module Alchemy::Custom::Model
       end
 
       def base_class
-        raise 'to_override'
+        raise '-- Override Method base_class'
+      end
+
+      def url_namespace
+        [:admin, base_class]
       end
 
       def load_object
@@ -133,26 +138,26 @@ module Alchemy::Custom::Model
       end
 
       def after_successful_destroy
-        redirect_to polymorphic_path([:admin, @obj.class]), notice: t(:record_succesfully_destroy, model: @obj.class.model_name.human)
+        redirect_to polymorphic_path(url_namespace), notice: t(:record_succesfully_destroy, model: base_class.model_name.human)
       end
 
       def after_unsuccessful_destroy
-        redirect_to polymorphic_path([:admin, @obj.class]), error: t(:record_unsuccesfully_destroy, model: @obj.class.model_name.human)
+        redirect_to polymorphic_path(url_namespace), error: t(:record_unsuccesfully_destroy, model: base_class.model_name.human)
       end
 
-      def after_successfull_update
-        redirect_to polymorphic_path([:admin, @obj.class]), notice: t(:record_succesfully_update, model: @obj.class.model_name.human)
+      def after_successful_update
+        redirect_to polymorphic_path(url_namespace), notice: t(:record_succesfully_update, model: base_class.model_name.human)
       end
 
-      def atfer_unsuccessfull_update
+      def atfer_unsuccessful_update
         render :edit
       end
 
-      def after_successfull_create
-        redirect_to polymorphic_path([:admin, @obj.class]), notice: t(:record_succesfully_create, model: @obj.class.model_name.human)
+      def after_successful_create
+        redirect_to polymorphic_path(url_namespace), notice: t(:record_succesfully_create, model: base_class.model_name.human)
       end
 
-      def atfer_unsuccessfull_create
+      def after_unsuccessful_create
         render :new
       end
 

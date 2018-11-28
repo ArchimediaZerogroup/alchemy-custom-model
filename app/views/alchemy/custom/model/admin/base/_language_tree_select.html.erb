@@ -1,0 +1,9 @@
+<%- if multi_language? -%>
+<div class="button_with_label">
+  <%= select_tag 'change_language',
+                 options_for_select(Alchemy::Language.on_current_site.map { |l| [l.name, l.id] }, Alchemy::Language.current.id),
+                 class: 'alchemy_selectbox' %>
+  <label><%= Alchemy.t("Language tree") %></label>
+</div>
+<div class="toolbar_spacer"></div>
+<% end %>

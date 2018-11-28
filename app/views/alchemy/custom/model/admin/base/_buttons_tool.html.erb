@@ -1,0 +1,16 @@
+<% if can?(:edit, base_class) %>
+  <%= link_to fa_icon("edit"), edit_polymorphic_path(obj),
+              title: t(:edit),
+              class: "edit" %>
+<% end %>
+
+<% if check_presence_polymorphic_path([obj,:clone], action: :new) and can?(:clones, base_class) %>
+  <%= link_to_dialog fa_icon("clone"), new_polymorphic_path([obj,:clone]),
+              title: t(:clone, model: base_class.model_name.human),
+              class: "clone" %>
+<% end %>
+
+
+<% if can?(:destroy, base_class) %>
+  <%= delete_button polymorphic_path(obj), icon: "trash" %>
+<% end %>

@@ -1,6 +1,9 @@
 class Admin::PostsController < Alchemy::Custom::Model::Admin::BaseController
-  def index
 
+  private
+
+  def base_class
+    Post
   end
 
 end
