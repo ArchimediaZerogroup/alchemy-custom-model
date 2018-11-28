@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-alchemy-custom-model@^0.1.0:
+alchemy-custom-model@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/alchemy-custom-model/-/alchemy-custom-model-0.1.1.tgz#82f5243370d5e21441fe9b0178e6a3bc8474f92f"
   integrity sha512-UM106lcf60dx0700IUgSALZnKcm40kP2hTVc9FWtFmPy4xU4hhpINMDe1CKZ0x051Lz+Kx7xsUO0rjx4cOaDSg==

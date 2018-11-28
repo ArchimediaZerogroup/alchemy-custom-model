@@ -2,6 +2,6 @@
   "name": "dummy",
   "private": true,
   "dependencies": {
-    "alchemy-custom-model": "^0.1.0"
+    "alchemy-custom-model": "^0.1.1"
   }
 }
