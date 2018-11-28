@@ -10,7 +10,6 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require js-routes
 //= require jquery-ui
 //= require "./custom_tiny_mce"
 //= require "./custom_admin_element_editor"

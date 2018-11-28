@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'alchemy_cms', '~> 4.0'
   s.add_dependency "jquery-ui-rails", "~> 6.0"
-  s.add_dependency "js-routes",'~> 1.4'
   # s.add_dependency 'friendly_id', '~> 5.2.0'
   # s.add_dependency 'friendly_id-globalize', '~> 1.0.0.alpha3'
   #add globalize to dependency
