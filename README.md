@@ -86,6 +86,22 @@ bin/rails  alchemy_custom_model:install
     Alchemy.register_ability(PostAbility)
 ```
 
+* Costruisci la form per il modello
+```ruby
+
+<%= base_form_container do %>
+  <div class="form_in_page">
+    <%= simple_form_for [:admin,@obj] do |f| %>
+      <fieldset>
+
+        <%= f.input :name %>
+        <%= rich_text_editor(f, :description) %>
+        <%= single_image_input(f, :picture) %>
+        <%= single_attachment_input(f, :file) %>
+...
+
+```
+
 ## Contributing
 Contribution directions go here.
 
