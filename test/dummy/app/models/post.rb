@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: posts
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  picture_id  :integer
+#  file_id     :integer
+#  language_id :integer
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class Post < ApplicationRecord
 
   include Alchemy::Custom::Model::ModelDecoration
