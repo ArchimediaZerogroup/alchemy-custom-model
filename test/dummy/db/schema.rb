@@ -350,6 +350,7 @@ ActiveRecord::Schema.define(version: 2018_11_27_142144) do
     t.string "name"
     t.integer "picture_id"
     t.integer "file_id"
+    t.integer "language_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

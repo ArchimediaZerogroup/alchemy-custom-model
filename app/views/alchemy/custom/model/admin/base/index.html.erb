@@ -9,9 +9,9 @@
      buttons: [
        {
          icon: :plus,
-         label: t(:title_action, action: t(:new, scope: :actions), model: base_class.model_name.human),
+         label: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
          url: new_polymorphic_path(url_namespace),
-         title: t(:title_action, action: t(:new, scope: :actions), model: base_class.model_name.human),
+         title: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
          hotkey: 'alt+n',
          dialog: false,
          if_permitted_to: [:create, base_class]

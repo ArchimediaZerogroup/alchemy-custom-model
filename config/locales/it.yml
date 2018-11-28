@@ -1,0 +1,11 @@
+it:
+  alchemy_custom_model:
+    you_are_editing_site_language: "Stai modificando la lingua <strong>%{language}</strong> del sito <strong>%{site}</strong>"
+    title_action: "%{action} %{model}"
+    actions:
+      new: Nuovo
+      edit: Modifica
+      show: Visualizza
+      update: Modifica
+      index: Visualizza tutti
+      create: Nuovo

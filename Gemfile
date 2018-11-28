@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) {|repo| "https://github.com/#{repo}.git"}
 
 # Declare your gem's dependencies in alchemy-custom-model.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -19,3 +19,4 @@ gemspec
 gem 'sass-rails'
 gem 'sqlite3'
 gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
+gem 'alchemy_i18n', github: 'AlchemyCMS/alchemy_i18n', branch: 'master'

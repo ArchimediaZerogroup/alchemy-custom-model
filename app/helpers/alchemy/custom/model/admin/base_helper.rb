@@ -1,4 +1,4 @@
-module Admin::CustomModelsHelper
+module Alchemy::Custom::Model::Admin::BaseHelper
 
 
   def base_form_container
@@ -61,10 +61,10 @@ module Admin::CustomModelsHelper
           bf2 << link_to("#", class: 'open_el_finder',
                          title: t("elfinder.edit_image_button"),
                          data: {
-                             "elfinder-mode": 'single_selection',
-                             "elfinder-target": "##{component_id}",
-                             "elfinder-thumb-target": "##{component_id_image}",
-                             "elfinder-volumes": 'AlchemyImages'
+                           "elfinder-mode": 'single_selection',
+                           "elfinder-target": "##{component_id}",
+                           "elfinder-thumb-target": "##{component_id_image}",
+                           "elfinder-volumes": 'AlchemyImages'
                          }) do
             fa_icon("file-image")
           end
@@ -72,9 +72,9 @@ module Admin::CustomModelsHelper
           bf2 << link_to("#", class: 'clear_selection',
                          title: t("elfinder.clear_image_button"),
                          data: {
-                             "clearfield-target": "##{component_id}",
-                             "clearfield-thumb-target": "##{component_id_image}",
-                             "clearfield-thumb-target-replace": no_image_path
+                           "clearfield-target": "##{component_id}",
+                           "clearfield-thumb-target": "##{component_id_image}",
+                           "clearfield-thumb-target-replace": no_image_path
                          }) do
             fa_icon("times")
           end
@@ -136,10 +136,10 @@ module Admin::CustomModelsHelper
           bf2 << link_to("#", class: 'open_el_finder',
                          title: t("elfinder.edit_attachment_button"),
                          data: {
-                             "elfinder-mode": 'single_selection',
-                             "elfinder-target": "##{component_id}",
-                             "elfinder-mime_icon_updater": "##{id_icone}",
-                             "elfinder-volumes": 'AlchemyFiles'
+                           "elfinder-mode": 'single_selection',
+                           "elfinder-target": "##{component_id}",
+                           "elfinder-mime_icon_updater": "##{id_icone}",
+                           "elfinder-volumes": 'AlchemyFiles'
                          }) do
             fa_icon("file")
           end
@@ -147,8 +147,8 @@ module Admin::CustomModelsHelper
           bf2 << link_to("#", class: 'clear_selection',
                          title: t("elfinder.clear_attachment_button"),
                          data: {
-                             "clearfield-target": "##{component_id}",
-                             "clearfield-icon": "##{id_icone}"
+                           "clearfield-target": "##{component_id}",
+                           "clearfield-icon": "##{id_icone}"
                          }) do
             fa_icon("times")
           end
@@ -240,19 +240,19 @@ module Admin::CustomModelsHelper
 
           bf << content_tag(:div, class: 'gallery_item_blk') do
             link_to("#", class: 'open_el_finder', data: {
-                "elfinder-mode": 'multiple_selection',
-                "elfinder-target_upgrader": partial_url,
-                "elfinder-target": partial_identifier,
-                "elfinder-volumes": 'AlchemyImages,GalleryVolume',
-                "elfinder-volumes_cfgs": Base64.strict_encode64({
-                                                                    "GalleryVolume": {
-                                                                        volume: 'ComponentAttribute',
-                                                                        attribute: field,
-                                                                        object: form.object.to_signed_global_id.to_s,
-                                                                        file_link_ref: 'picture',
-                                                                        tags: tags
-                                                                    }
-                                                                }.to_json)
+              "elfinder-mode": 'multiple_selection',
+              "elfinder-target_upgrader": partial_url,
+              "elfinder-target": partial_identifier,
+              "elfinder-volumes": 'AlchemyImages,GalleryVolume',
+              "elfinder-volumes_cfgs": Base64.strict_encode64({
+                                                                "GalleryVolume": {
+                                                                  volume: 'ComponentAttribute',
+                                                                  attribute: field,
+                                                                  object: form.object.to_signed_global_id.to_s,
+                                                                  file_link_ref: 'picture',
+                                                                  tags: tags
+                                                                }
+                                                              }.to_json)
             }) do
               fa_icon("images")
             end
@@ -302,7 +302,7 @@ module Admin::CustomModelsHelper
             end
             is_sample = form_attrs.all? {|attr, val| val.blank?}
 
-            content_tag(:div, id: "#{subform.object.class.name.demodulize.underscore}_#{subform.object.id}" ,class: "subobject_row row_#{field.to_s.singularize} #{"sample" if is_sample}") do
+            content_tag(:div, id: "#{subform.object.class.name.demodulize.underscore}_#{subform.object.id}", class: "subobject_row row_#{field.to_s.singularize} #{"sample" if is_sample}") do
 
               form_html = ActiveSupport::SafeBuffer.new
 
@@ -371,13 +371,12 @@ module Admin::CustomModelsHelper
 
   def check_presence_polymorphic_path(record_or_hash_or_array, options = {})
     begin
-      polymorphic_path record_or_hash_or_array,options
+      polymorphic_path record_or_hash_or_array, options
       true
     rescue NoMethodError
       false
     end
   end
-
 
 
 end

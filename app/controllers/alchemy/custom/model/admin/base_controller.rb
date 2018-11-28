@@ -11,6 +11,8 @@ module Alchemy::Custom::Model
       helper_method :table_columns
       helper_method :url_namespace
 
+      helper Alchemy::Custom::Model::BaseHelper
+
 
       def index
         @query = base_class.ransack(params[:q])

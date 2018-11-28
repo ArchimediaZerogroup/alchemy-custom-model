@@ -9,4 +9,6 @@
  *
  *= require alchemy/admin
  *= require alchemy/admin/alchemy-devise
- */
+ 
+*= require alchemy-custom-model/manifest.css
+*/
