@@ -21,6 +21,7 @@ PATH
     alchemy-custom-model (0.1.0)
       alchemy_cms (~> 4.0)
       jquery-ui-rails (~> 6.0)
+      js-routes (~> 1.4)
 
 GEM
   remote: https://rubygems.org/
@@ -142,6 +143,9 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
+    js-routes (1.4.4)
+      railties (>= 3.2)
+      sprockets-rails
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.1.1)

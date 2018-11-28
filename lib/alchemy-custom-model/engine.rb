@@ -5,6 +5,8 @@ module Alchemy
         #isolate_namespace Alchemy
         #
 
+        require 'js-routes'
+
         config.autoload_paths << config.root.join('lib')
 
         initializer "alchemy_custom_model.assets.precompile" do |app|

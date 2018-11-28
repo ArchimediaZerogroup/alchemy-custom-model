@@ -10,12 +10,15 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require "./el_finder"
-//= require "./custom_admin_element_editor"
-//= require "./total_page_elfinder"
+//= require js-routes
+//= require jquery-ui
 //= require "./custom_tiny_mce"
+//= require "./custom_admin_element_editor"
 //= require "./nested_attributes_sortable"
-//= require "./subobjects"
-//= require "./select2filter"
 //= require "./change_language"
+//= require "./subobjects"
+//= require select2_locale_it
+//= require "./select2filter"
+//= require "./el_finder"
+//= require "./total_page_elfinder"
 //= require "./common_init"
