@@ -8,3 +8,5 @@ Alchemy::Modules.register_module({
                                      icon: "question" # custom icon
                                    }
                                  })
+
+Alchemy.register_ability(PostAbility)

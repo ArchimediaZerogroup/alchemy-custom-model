@@ -51,6 +51,21 @@ bin/rails  alchemy_custom_model:install
     bin/rails g controller Admin::Posts
 ```
 * inherit from Alchemy::Custom::Model::Admin::BaseController
+* Create the routes (prepend it to alchemy routes)
+* Build the ability for your recipe:
+```ruby
+  class PostAbility
+    include CanCan::Ability
+
+    def initialize(user)
+      if user.present? && (user.is_admin? or user.has_role?("editor"))
+        can :manage, Post #model
+        can :manage, :admin_posts #routes to the posts withouth _path
+      end
+    end
+
+  end
+```
 
 * build the abilities in ad initializer Es: "menu_and_abilities.rb"
 ```ruby
@@ -64,6 +79,7 @@ bin/rails  alchemy_custom_model:install
                                              icon: "question" # custom icon
                                          }
                                      })
+    Alchemy.register_ability(PostAbility)
 ```
 
 ## Contributing
