@@ -8,6 +8,8 @@ class Alchemy::Custom::Model::InstallTask < Thor
       sentinel = /\*\//
       inject_into_file "./vendor/assets/stylesheets/alchemy/admin/all.css", "\n*= require alchemy-custom-model/manifest.css\n",
                        { before: sentinel, verbose: true }
+      append_to_file "./vendor/assets/javascripts/alchemy/admin/all.js", "\n//= require alchemy-custom-model/manifest.js\n",
+                       {verbose: true }
     end
 
 

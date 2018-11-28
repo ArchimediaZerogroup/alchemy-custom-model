@@ -10,3 +10,5 @@
 //
 //= require alchemy/admin
 //= require alchemy_i18n
+
+//= require alchemy-custom-model/manifest.js

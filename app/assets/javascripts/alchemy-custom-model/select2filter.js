@@ -1,6 +1,6 @@
 (function ($) {
 
-    $.fn.slect2filter = function (options) {
+    $.fn.select2filter = function (options) {
 
         var options = $.extend({
             elementToFilter: "",

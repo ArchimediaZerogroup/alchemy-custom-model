@@ -48,7 +48,7 @@ module Alchemy::Custom::Model::Admin::BaseHelper
 
         bf << form.hidden_field(field, id: component_id, value: ref_id)
 
-        image_path = no_image_path = image_url("no_image.png")
+        image_path = no_image_path = image_url("alchemy-custom-model/no_image.png")
 
         image_path = form.object.send(field).image_file.thumb("100x100#").url if form.object.send(field) and form.object.send(field).image_file_stored?
 
@@ -88,6 +88,12 @@ module Alchemy::Custom::Model::Admin::BaseHelper
     end
 
 
+  end
+
+  ##
+  # rimpiazzo helper per icone
+  def fa_icon(icon)
+    content_tag(:i, nil, class: "fas fa-#{icon} fa-lg fa-fw")
   end
 
 
