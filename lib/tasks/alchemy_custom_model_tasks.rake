@@ -12,6 +12,11 @@ class Alchemy::Custom::Model::InstallTask < Thor
                        {verbose: true }
     end
 
+    def inject_routes
+      sentinel = /mount Alchemy::Engine \=\>/
+      inject_into_file "./config/routes.rb", "\n mount Alchemy::Custom::Model::Engine => '/alchemy-custom-model'\n", { before: sentinel, verbose: true }
+    end
+
 
   end
 end
@@ -26,6 +31,7 @@ namespace :alchemy_custom_model do
     system("yarn add alchemy-custom-model") || exit!(1)
 
     install_helper.inject_assets
+    install_helper.inject_routes
   end
 
 end
