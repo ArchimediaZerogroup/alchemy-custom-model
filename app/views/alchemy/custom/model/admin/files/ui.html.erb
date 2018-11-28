@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag 'alchemy/admin/all', media: 'all' %>
+  <%= stylesheet_link_tag 'elfinder/css/elfinder.min', media: 'all' %>
+  <%= stylesheet_link_tag 'elfinder/css/theme', media: 'all' %>
+  <%= javascript_include_tag 'alchemy-custom-model/elfinder_ui_manifest' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= content_tag(:div, nil, id: 'elfinder', data: {"elfinder-volumes": @volumes.join(',')}) %>
+</body>
+</html>

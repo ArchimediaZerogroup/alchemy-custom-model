@@ -14,7 +14,10 @@ Gem::Specification.new do |s|
   s.description = "A gem for semplify model implementation with Alchemy CMS"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile",
+                "README.md",
+                'vendor/elfinder/css/*',
+                'vendor/elfinder/js/elfinder.*.js']
 
   s.add_dependency 'alchemy_cms', '~> 4.0'
   s.add_dependency "jquery-ui-rails", "~> 6.0"

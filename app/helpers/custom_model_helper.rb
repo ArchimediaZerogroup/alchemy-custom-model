@@ -67,13 +67,7 @@ module CustomModelHelper
     I18n.t("estensione_prodotti.#{mime.i18n_key}", default: mime.preferred_extension)
   end
 
-  def print_current_site_language
-    content_tag(:div, class: "current_site_language") do
-      acm_t(:you_are_editing_site_language,
-        site: Alchemy::Site.current.name,
-        language: Alchemy::Language.current.name).html_safe
-    end
-  end
+
 
   def extract_video_id_from_link(link)
     vid_regex = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
