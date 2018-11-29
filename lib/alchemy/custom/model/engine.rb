@@ -15,6 +15,20 @@ module Alchemy
 
         end
 
+        config.to_prepare do
+
+          Alchemy::PagesController.include(PagesControllerDec)
+
+          # load degli helpers per alchemy
+          [
+            Alchemy::Custom::Model::Engine.root.join('app', 'helpers', 'alchemy', 'pages_helper_decorator.rb')
+          ].each do |f|
+            Rails.configuration.cache_classes ? require(f) : load(f)
+          end
+
+
+        end
+
 
         # initializer "alchemy_richmedia_essences.register_ability" do
         #   Alchemy.register_ability Alchemy::Richmedia::Essences::Ability

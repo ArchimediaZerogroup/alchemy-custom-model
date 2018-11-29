@@ -1,13 +1,13 @@
 Alchemy::PagesHelper.module_eval do
 
-  include CustomModelHelper
+  include Alchemy::Custom::Model::CustomModelHelper
 
   def page_title(options = {})
     return "" if !@custom_element.nil? and @custom_element.respond_to? :meta_title and
-        @custom_element.meta_title.presence and @page.title.blank?
+      @custom_element.meta_title.presence and @page.title.blank?
     options = {
-        prefix: "",
-        separator: ""
+      prefix: "",
+      separator: ""
     }.update(options)
     title_parts = [options[:prefix]]
     if response.status == 200
@@ -60,10 +60,10 @@ Alchemy::PagesHelper.module_eval do
         back
       end
     end
-    bf << content_tag(:span, class:"arrow_menu arrow_up") do
+    bf << content_tag(:span, class: "arrow_menu arrow_up") do
       fa_icon("chevron-up")
     end
-    bf << content_tag(:span, class:"arrow_menu arrow_down") do
+    bf << content_tag(:span, class: "arrow_menu arrow_down") do
       fa_icon("chevron-down")
     end
     bf
@@ -98,6 +98,20 @@ Alchemy::PagesHelper.module_eval do
     end
     sb
   end
+
+
+  def language_links_by_page(current_page)
+    r = []
+    Alchemy::Language.on_current_site.published.with_root_page.collect {|lang|
+      page = Alchemy::Page.published.with_language(lang.id).where(name: current_page.name).first
+      if not page.nil? and lang != Alchemy::Language.current
+        url_page = show_page_path_params(page).merge(locale: lang.code)
+        r << content_tag(:link, nil, href: url_page[:locale] + '/' + url_page[:urlname], hreflang: lang.code, rel: "alternate")
+      end
+    }
+    r.join().html_safe
+  end
+
 
 
 end

@@ -12,6 +12,7 @@ module Alchemy
       autoload :GlobalIdSetter
       autoload :ModelDecoration
       autoload :TranslationScope
+      autoload :PagesControllerDec
 
 
       mattr_accessor :base_admin_controller_class
