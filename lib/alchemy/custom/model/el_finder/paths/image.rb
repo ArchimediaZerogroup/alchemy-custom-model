@@ -1,6 +1,6 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
   module Paths
-    class Image < ElFinder::Paths::File
+    class Image < File
 
       #
       # url per la thumb
@@ -15,7 +15,7 @@ module ElFinder
       end
 
       def active_record_class
-        Alchemy::Picture
+        ::Alchemy::Picture
       end
 
       def file

@@ -1,6 +1,6 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
   module Paths
-    class ComponentFile < ElFinder::Paths::ActiveRecordReference
+    class ComponentFile < ActiveRecordReference
 
       def active_record_class
         self.volume.attribute_class
@@ -15,9 +15,9 @@ module ElFinder
 
       def file
         case alchemy_record
-        when Alchemy::Attachment
+        when ::Alchemy::Attachment
           alchemy_record.file
-        when Alchemy::Picture
+        when ::Alchemy::Picture
           alchemy_record.image_file
         end
       end
@@ -25,9 +25,9 @@ module ElFinder
 
       def file=(val)
         case alchemy_record
-        when Alchemy::Attachment
+        when ::Alchemy::Attachment
           alchemy_record.file = val
-        when Alchemy::Picture
+        when ::Alchemy::Picture
           alchemy_record.image_file = val
         end
       end
@@ -42,16 +42,16 @@ module ElFinder
 
       def tmb
         case alchemy_record
-        when Alchemy::Attachment
+        when ::Alchemy::Attachment
           ''
-        when Alchemy::Picture
+        when ::Alchemy::Picture
           file.thumb('100x100#').url
         end
 
       end
 
       def is_image?
-        alchemy_record.is_a? Alchemy::Picture
+        alchemy_record.is_a? ::Alchemy::Picture
       end
 
     end

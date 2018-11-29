@@ -1,6 +1,6 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
     module Paths
-      class ActiveRecordReference < ElFinder::Paths::Base
+      class ActiveRecordReference < Base
 
 
         URI_SPACER = '___'

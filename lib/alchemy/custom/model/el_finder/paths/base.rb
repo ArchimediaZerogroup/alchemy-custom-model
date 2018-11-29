@@ -1,4 +1,4 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
   module Paths
     class Base
 
@@ -12,10 +12,10 @@ module ElFinder
 
         @volume = opts.delete(:volume)
 
-        @root = root.is_a?(ElFinder::Pathname) ? root.root : ::Pathname.new(root)
+        @root = root.is_a?(Pathname) ? root.root : ::Pathname.new(root)
 
         @path = ::Pathname.new(path)
-        @path = path.is_a?(ElFinder::Pathname) ? path.path : ::Pathname.new(path)
+        @path = path.is_a?(Pathname) ? path.path : ::Pathname.new(path)
         if absolute?
           if @path.cleanpath.to_s.start_with?(@root.to_s)
             @path = ::Pathname.new @path.to_s.slice((@root.to_s.length + 1)..-1)

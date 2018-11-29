@@ -9,3 +9,6 @@ it:
       update: Modifica
       index: Visualizza tutti
       create: Nuovo
+    elfinder:
+      alchemy_images:
+        volume: "Immagini"

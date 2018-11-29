@@ -1,4 +1,4 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
   module Paths
     class Root < Base
 
@@ -13,8 +13,8 @@ module ElFinder
 
       def children(with_directory = true)
         [
-            ElFinder::Paths::Images.new(@root, 'images', volume: @volume),
-            ElFinder::Paths::Files.new(@root, 'files', volume: @volume)
+            Images.new(@root, 'images', volume: @volume),
+            Files.new(@root, 'files', volume: @volume)
         ]
       end
 

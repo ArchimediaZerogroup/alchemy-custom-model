@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'pathname'
 
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
 
   class Pathname
     attr_reader :root, :path

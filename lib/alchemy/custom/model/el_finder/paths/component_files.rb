@@ -1,4 +1,4 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
   module Paths
     class ComponentFiles < Base
 
@@ -19,7 +19,7 @@ module ElFinder
       # @param [Alchemy::Picture | Alchemy::Attachment] p
       def build_file_path(p)
 
-        base_class = ElFinder::Paths::ComponentFile
+        base_class = ComponentFile
 
 
         file_path = base_class.new(@root, "#{self.path}/#{base_class.file_to_uri(p)}", volume: self.volume)

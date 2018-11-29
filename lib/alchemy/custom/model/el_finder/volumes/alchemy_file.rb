@@ -1,6 +1,6 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
   module Volumes
-    class Alchemy < Base
+    class AlchemyFile < Base
 
       def initialize(options = {root: '/alchemy_library', name: 'Alchemy Library', id: 'alchemy_library', url: '/'})
         super
@@ -20,22 +20,22 @@ module ElFinder
         super do |path|
           case path.to_s
           when 'images'
-            ElFinder::Paths::Images.new(@root, path, volume: self)
+            Paths::Images.new(@root, path, volume: self)
           when 'files'
-            ElFinder::Paths::Files.new(@root, path, volume: self)
+            Paths::Files.new(@root, path, volume: self)
           when /images\/*/
-            ElFinder::Paths::Image.new(@root, path, volume: self)
+            Paths::Image.new(@root, path, volume: self)
           when /files\/*/
-            ElFinder::Paths::File.new(@root, path, volume: self)
+            Paths::File.new(@root, path, volume: self)
           when @root, '.'
-            ElFinder::Paths::Root.new(@root, path, volume: self)
+            Paths::Root.new(@root, path, volume: self)
           else
             Rails.logger.debug {"PATH BASE:#{path}"}
             if block_given?
               Rails.logger.debug {"YIELDING:#{self.class.name}"}
               yield(path)
             else
-              ElFinder::Paths::Base.new(@root, path, volume: self)
+              Paths::Base.new(@root, path, volume: self)
             end
           end
         end
@@ -86,12 +86,12 @@ module ElFinder
 
       def files(target = '.')
         Rails.logger.debug {"FILES PER : #{target.inspect}"}
-        unless target.is_a?(ElFinder::Paths::Base)
+        unless target.is_a?(Paths::Base)
           if target == '.'
-            target = ElFinder::Paths::Root.new(@root, '.', volume: self)
+            target = Paths::Root.new(@root, '.', volume: self)
           else
             Rails.logger.debug {target.inspect}
-            target = ElFinder::Pathname.new(@root, target, volume: self)
+            target = Pathname.new(@root, target, volume: self)
           end
         end
 

@@ -1,6 +1,6 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
   module Volumes
-    class ComponentAttribute < ElFinder::Volumes::Alchemy
+    class ComponentAttribute < ElFinder::Volumes::AlchemyFile
 
       attr_accessor :record, :attribute, :file_link_ref, :tags
 

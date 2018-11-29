@@ -1,6 +1,6 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
   module Volumes
-    class AlchemyFiles < ElFinder::Volumes::Alchemy
+    class AlchemyFiles < ElFinder::Volumes::AlchemyFile
 
       def initialize(options = {root: '/files', name: 'Alchemy Library - Files', id: 'alchemy_library_files', url: '/'})
         super

@@ -1,4 +1,4 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
   class Connector
 
     VERSION = 2.1

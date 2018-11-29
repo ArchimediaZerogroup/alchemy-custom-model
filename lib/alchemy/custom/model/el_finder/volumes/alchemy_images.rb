@@ -1,8 +1,8 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
   module Volumes
-    class AlchemyImages < ElFinder::Volumes::Alchemy
+    class AlchemyImages < AlchemyFile
 
-      def initialize(options = {root: '/images', name: I18n.t("elfinder.alchemy_images.volume"), id: 'alchemy_library_images', url: '/'})
+      def initialize(options = {root: '/images', name: acm_t("volume",scope:'elfinder.alchemy_images'), id: 'alchemy_library_images', url: '/'})
         super
       end
 
@@ -12,7 +12,7 @@ module ElFinder
 
       def decode(hash)
         super do |path|
-          ElFinder::Paths::Image.new(@root, path, volume: self)
+          Paths::Image.new(@root, path, volume: self)
         end
       end
 
@@ -61,7 +61,7 @@ module ElFinder
 
 
       def root_path
-        ElFinder::Paths::Images.new(@root, '.', volume: self)
+        Paths::Images.new(@root, '.', volume: self)
       end
 
     end

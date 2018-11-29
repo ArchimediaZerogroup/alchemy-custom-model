@@ -3,7 +3,7 @@ require 'shellwords'
 require 'image_size'
 
 
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
 
   # Represents default image handler.
   # It uses *mogrify* to resize images and *convert* to create thumbnails.

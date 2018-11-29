@@ -1,10 +1,10 @@
-module ElFinder
+module Alchemy::Custom::Model::ElFinder
   module Paths
     class Images < Base
 
 
       def children(with_directory = true)
-        Alchemy::Picture.all.collect {|p|
+        ::Alchemy::Picture.all.collect {|p|
           build_file_path(p)
         }
       end
@@ -15,7 +15,7 @@ module ElFinder
       # @param [Alchemy::Picture | Alchemy::Attachment] p
       def build_file_path(p)
 
-        base_class = ElFinder::Paths::Image
+        base_class = Image
 
         Rails.logger.debug {"#{@root}-#{self.path}"}
         image = base_class.new(@root, "#{self.path}/#{base_class.file_to_uri(p)}")

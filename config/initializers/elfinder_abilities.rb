@@ -1,1 +1,1 @@
-Alchemy.register_ability(ElFinder::Ability)
+Alchemy.register_ability(Alchemy::Custom::Model::ElFinder::Ability)
