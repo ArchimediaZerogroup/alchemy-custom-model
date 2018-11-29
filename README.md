@@ -102,13 +102,13 @@ bin/rails  alchemy_custom_model:install
 
 ```
 
-## Contributing
-Contribution directions go here.
+## Development
 
 git clone --recursive git@github.com:ArchimediaZerogroup/alchemy-custom-model.git
-cd test/dummy
-bundle install
-yarn
+
+docker build -t alchemy_custom_image .
+
+docker run -itP --rm -v "$(pwd)":/app alchemy_custom_image bin/rails s -b 0.0.0.0
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
