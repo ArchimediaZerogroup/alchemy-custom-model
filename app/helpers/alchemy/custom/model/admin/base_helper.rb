@@ -92,8 +92,8 @@ module Alchemy::Custom::Model::Admin::BaseHelper
 
   ##
   # rimpiazzo helper per icone
-  def fa_icon(icon)
-    content_tag(:i, nil, class: "fas fa-#{icon} fa-lg fa-fw")
+  def fa_icon(icon, title: nil)
+    content_tag(:i, nil, class: "fas fa-#{icon} fa-lg fa-fw", title: title)
   end
 
 
@@ -175,33 +175,11 @@ module Alchemy::Custom::Model::Admin::BaseHelper
     end
   end
 
-  def render_obj obj, field
-    case field
-    when :product_category_id
-      obj.product_category.try(:name)
-    when :visible
-      if obj.visible?
-        fa_icon("check")
-      end
-    else
-      obj.send field
-    end
+  def render_obj(obj, field)
+    obj.send field
   end
 
-  def gallery_item(&block)
 
-
-    content_tag(:div) do
-      bf = ActiveSupport::SafeBuffer.new
-
-      bf << capture(&block)
-
-      bf
-
-    end
-
-
-  end
 
   ##
   # Costruisce il necessario per la generazione della struttura della gallery e per selezione ed upload immagini
@@ -292,7 +270,11 @@ module Alchemy::Custom::Model::Admin::BaseHelper
   # @param [Object] active_record_modifier Proc chiamata durante l'esecuzione della query per la selezione degli elementi,
   #                                        sovrascrivere e ritornare un ActiveRecord::Relation
   def subobject(label, form, field, to_load:, url_partial:, active_record_modifier: ->(relation) {relation})
-    content_tag(:fieldset, class: :subobjects) do
+
+    ui_identify = "subobjects_container_#{SecureRandom.hex}"
+
+    interface = ActiveSupport::SafeBuffer.new
+    interface = content_tag(:fieldset, class: "subobjects #{ui_identify}") do
       sb = ActiveSupport::SafeBuffer.new
 
       sb << content_tag(:legend, label)
@@ -357,13 +339,13 @@ module Alchemy::Custom::Model::Admin::BaseHelper
       end
       sb << content_tag(:div, class: "buttons") do
         buttons = ActiveSupport::SafeBuffer.new
-        buttons << button_tag(type: "button", class: "minimize_all", title: t(:minimize_all)) do
+        buttons << button_tag(type: "button", class: "minimize_all", title: acm_t(:minimize_all, scope: 'sub_objects')) do
           fa_icon("window-minimize")
         end
-        buttons << button_tag(type: "button", class: "maximize_all", title: t(:maxzimize_all)) do
+        buttons << button_tag(type: "button", class: "maximize_all", title: acm_t(:maxzimize_all, scope: 'sub_objects')) do
           fa_icon("window-maximize")
         end
-        buttons << button_tag(type: "button", class: "add", title: t(:title_add), data: {to_load: to_load, url: url_partial}) do
+        buttons << button_tag(type: "button", class: "add", title: acm_t(:title_add, scope: 'sub_objects'), data: {to_load: to_load, url: url_partial}) do
           fa_icon("plus")
         end
         buttons
@@ -371,6 +353,15 @@ module Alchemy::Custom::Model::Admin::BaseHelper
       sb
     end
 
+
+    interface << content_tag(:script, :type => "text/javascript") do
+      raw "(function(){
+            $('.#{ui_identify}').subobjects();
+          })();
+           "
+    end
+
+    interface
 
   end
 

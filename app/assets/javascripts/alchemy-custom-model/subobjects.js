@@ -96,7 +96,3 @@
 
 })(jQuery);
 
-
-$(document).on("turbolinks:load", function () {
-    $(".subobjects").subobjects();
-});

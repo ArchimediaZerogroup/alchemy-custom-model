@@ -50,4 +50,6 @@ ADD test/dummy/yarn.lock .
 
 RUN yarn
 
+RUN gem install annotate
+
 EXPOSE 3000

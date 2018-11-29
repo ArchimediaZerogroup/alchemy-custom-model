@@ -102,6 +102,13 @@ bin/rails  alchemy_custom_model:install
 
 ```
 
+* Per elementi come subobject seguire l'esempio di codice nei test che rivedono le varie opzioni
+* Per modelli che si legano direttamente con componenti di alchemy è necessario utilizzare delle relazioni generiche che identificato il record:
+```ruby
+  belongs_to :picture, class_name: 'Alchemy::Picture', touch: true
+  belongs_to :alchemy_file_instance, class_name: 'Alchemy::Picture', foreign_key: :picture_id #relazione generica per i files utilizzata nel volume di elfinder
+```
+
 ## Development
 
 git clone --recursive git@github.com:ArchimediaZerogroup/alchemy-custom-model.git

@@ -95,8 +95,8 @@ module Alchemy::Custom::Model
         raise '-- Override Method base_class'
       end
 
-      def url_namespace
-        [:admin, base_class]
+      def url_namespace(obj=base_class)
+        [:admin, obj]
       end
 
       def load_object

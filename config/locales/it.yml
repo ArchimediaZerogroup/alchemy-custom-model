@@ -9,6 +9,13 @@ it:
       update: Modifica
       index: Visualizza tutti
       create: Nuovo
+
     elfinder:
       alchemy_images:
         volume: "Immagini"
+
+    sub_objects:
+      title_add: Aggiungi
+      minimize_all: Minimizza
+      maxzimize_all: Massimizza
+

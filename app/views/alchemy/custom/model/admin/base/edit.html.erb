@@ -1,18 +1,18 @@
 <% toolbar(
-       buttons: [
-           {
-               icon: "angle-double-left ",
-               label: t(:title_action, action: t(:index, scope: :actions), model: base_class.model_name.human),
-               url: polymorphic_path(@obj.class),
-               title: t(:title_action, action: t(:index, scope: :actions), model: base_class.model_name.human),
-               hotkey: 'alt+b',
-               dialog: false,
-               if_permitted_to: [:index, @obj.class]
-           }
+     buttons: [
+       {
+         icon: "angle-double-left ",
+         label: t(:title_action, action: t(:index, scope: :actions), model: base_class.model_name.human),
+         url: polymorphic_path(url_namespace),
+         title: t(:title_action, action: t(:index, scope: :actions), model: base_class.model_name.human),
+         hotkey: 'alt+b',
+         dialog: false,
+         if_permitted_to: [:index, @obj.class]
+       }
 
-       ],
-       search:false
+     ],
+     search: false
    ) %>
 
 <%= render 'title' %>
-<%= render partial: "form" %>
+<%= render partial: "form", locals: {object: @obj} %>
