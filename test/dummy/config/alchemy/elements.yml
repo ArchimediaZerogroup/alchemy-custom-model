@@ -17,3 +17,7 @@
     type: EssenceRichtext
     default: :article_text
     hint: true
+
+- name: comments_list
+  unique: true
+  hint: false

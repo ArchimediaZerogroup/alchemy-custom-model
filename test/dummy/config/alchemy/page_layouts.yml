@@ -4,5 +4,5 @@
 
 - name: index
   unique: true
-  elements: [article]
+  elements: [article, comments_list]
   autogenerate: [article]
