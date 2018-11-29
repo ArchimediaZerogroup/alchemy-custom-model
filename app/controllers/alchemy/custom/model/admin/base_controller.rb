@@ -1,6 +1,6 @@
 module Alchemy::Custom::Model
   module Admin
-    class BaseController < Alchemy::Admin::BaseController # FIXME controlla di derivare da una classe configurabile
+    class BaseController < Alchemy::Custom::Model.admin_controller_class
 
       before_action :authorize_resource
       before_action :clean_slug, only: [:create, :update]

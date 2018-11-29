@@ -13,6 +13,15 @@ module Alchemy
       autoload :ModelDecoration
       autoload :TranslationScope
 
+
+      mattr_accessor :base_admin_controller_class
+
+      @@base_admin_controller_class = 'Alchemy::Admin::BaseController'
+
+
+      def self.admin_controller_class
+        @_admin_class ||= @@base_admin_controller_class.constantize
+      end
     end
   end
 end
