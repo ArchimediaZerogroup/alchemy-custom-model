@@ -283,7 +283,7 @@ module Alchemy::Custom::Model::ElFinder
         #scopro il volume di destinazione
         dst_v, dst_f = from_hash(@params[:dst])
 
-        if dst_v.is_a?(ElFinder::Volumes::ComponentAttribute)
+        if dst_v.is_a?(Volumes::ComponentAttribute)
           moved_files << dst_v.copy(src_f)
         else
           @response[:error] ||= 'Copia non consentita'

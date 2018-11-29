@@ -35,7 +35,7 @@ module Alchemy::Custom::Model::ElFinder
       end
 
       def root_path
-        ElFinder::Paths::ComponentFiles.new(@root, '.', volume: self)
+        Paths::ComponentFiles.new(@root, '.', volume: self)
       end
 
       def copy(src)
@@ -45,7 +45,7 @@ module Alchemy::Custom::Model::ElFinder
 
       def decode(hash)
         super do |path|
-          ElFinder::Paths::ComponentFile.new(@root, path, volume: self)
+          Paths::ComponentFile.new(@root, path, volume: self)
         end
       end
 
@@ -94,7 +94,7 @@ module Alchemy::Custom::Model::ElFinder
       def duplicate(t)
         new_path = Rails.root.join('tmp', "copy_#{File.basename(t.name)}")
 
-        FileUtils.cp(t.file.path, new_path)
+        ::FileUtils.cp(t.file.path, new_path)
 
         img = ::Alchemy::Picture.new(
             image_file: new_path
