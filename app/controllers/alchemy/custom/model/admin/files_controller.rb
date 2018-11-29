@@ -88,7 +88,7 @@ module Alchemy::Custom::Model
           :mime_handler => ::ElFinder::MimeType,
           :image_handler => ElFinder::Image,
           :original_filename_method => lambda {|file| file.original_filename.respond_to?(:force_encoding) ? file.original_filename.force_encoding('utf-8') : file.original_filename},
-          :disabled_commands => [],
+          :disabled_commands => ['mkfile'],
           :allow_dot_files => true,
           :upload_max_size => '50M',
           # :upload_file_mode => 0644,

@@ -45,7 +45,7 @@ module Alchemy::Custom::Model::ElFinder
 
         new_path = Rails.root.join('tmp', "copy_#{File.basename(t.name)}")
 
-        FileUtils.cp(t.file.path, new_path)
+        ::FileUtils.cp(t.file.path, new_path)
 
         img = ::Alchemy::Picture.new(
             image_file: new_path

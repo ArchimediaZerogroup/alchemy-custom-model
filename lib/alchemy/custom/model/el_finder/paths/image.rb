@@ -1,6 +1,6 @@
 module Alchemy::Custom::Model::ElFinder
   module Paths
-    class Image < File
+    class Image < Paths::File
 
       #
       # url per la thumb

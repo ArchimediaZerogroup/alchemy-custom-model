@@ -9,7 +9,7 @@ module Alchemy::Custom::Model::ElFinder
       end
 
       def build_file_path(p)
-        base_class = File
+        base_class = Paths::File
 
         Rails.logger.debug {"#{@root}-#{self.path}"}
         image = base_class.new(@root, "#{self.path}/#{base_class.file_to_uri(p)}")

@@ -15,7 +15,7 @@ module Alchemy::Custom::Model::ElFinder
       # @param [Alchemy::Picture | Alchemy::Attachment] p
       def build_file_path(p)
 
-        base_class = Image
+        base_class = Paths::Image
 
         Rails.logger.debug {"#{@root}-#{self.path}"}
         image = base_class.new(@root, "#{self.path}/#{base_class.file_to_uri(p)}")

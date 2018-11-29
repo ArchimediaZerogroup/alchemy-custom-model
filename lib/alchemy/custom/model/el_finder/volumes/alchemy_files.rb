@@ -1,6 +1,6 @@
 module Alchemy::Custom::Model::ElFinder
   module Volumes
-    class AlchemyFiles < ElFinder::Volumes::AlchemyFile
+    class AlchemyFiles < AlchemyFile
 
       def initialize(options = {root: '/files', name: 'Alchemy Library - Files', id: 'alchemy_library_files', url: '/'})
         super
@@ -12,7 +12,7 @@ module Alchemy::Custom::Model::ElFinder
 
       def decode(hash)
         super do |path|
-          ElFinder::Paths::File.new(@root, path, volume: self)
+          Paths::File.new(@root, path, volume: self)
         end
       end
 
@@ -42,7 +42,7 @@ module Alchemy::Custom::Model::ElFinder
       private
 
       def root_path
-        ElFinder::Paths::Files.new(@root, '.', volume: self)
+        Paths::Files.new(@root, '.', volume: self)
       end
 
     end
