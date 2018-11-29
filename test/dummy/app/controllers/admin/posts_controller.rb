@@ -13,7 +13,8 @@ class Admin::PostsController < Alchemy::Custom::Model::Admin::BaseController
                                                     :file,
                                                     :_destroy,
                                                     :id,
-                                                    comment_picture_attributes: [:id, :position]]
+                                                    :position,
+                                                    comment_pictures_attributes: [:id, :position]]
     ]
   end
 

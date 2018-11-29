@@ -340,6 +340,7 @@ ActiveRecord::Schema.define(version: 2018_11_29_131436) do
     t.integer "file_id"
     t.integer "post_id"
     t.integer "language_id"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

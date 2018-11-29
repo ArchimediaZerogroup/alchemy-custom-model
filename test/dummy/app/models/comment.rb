@@ -23,5 +23,6 @@ class Comment < ApplicationRecord
   has_many :comment_pictures, dependent: :destroy
   accepts_nested_attributes_for :comment_pictures
 
+  default_scope -> {order(:position => :asc, created_at: :asc)}
 
 end

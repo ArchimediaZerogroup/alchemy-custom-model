@@ -13,7 +13,7 @@
 
       <% if object.persisted? %>
 
-        <%= subobject(t(:comments), f, :comments, to_load: ".row_preparation",
+        <%= subobject(t(:comments), f, :comments, to_load: ".row_comment",
                       url_partial: new_admin_post_comment_path(object)) do |frm| %>
 
           <%= frm.input :author %>
@@ -32,6 +32,8 @@
                               partial_url: edit_admin_post_path(object, :html),
                               partial_identifier: "##{selector}") %>
           </div>
+
+          <%= frm.input :position, as: :hidden, input_html: {class: "sortable_field"} %>
 
 
         <% end %>

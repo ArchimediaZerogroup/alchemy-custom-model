@@ -11,6 +11,7 @@
 #
 
 class CommentPicture < ApplicationRecord
+  default_scope -> {order(:position => :asc, :created_at => :asc)}
 
   belongs_to :comment
 
