@@ -3,15 +3,15 @@ require 'pathname'
 
 module Alchemy::Custom::Model::ElFinder
 
-  class Pathname
+  class PathName
     attr_reader :root, :path
 
     #
     def initialize(root, path = '.')
-      @root = root.is_a?(ElFinder::Pathname) ? root.root : ::Pathname.new(root)
+      @root = root.is_a?(PathName) ? root.root : ::Pathname.new(root)
 
       @path = ::Pathname.new(path)
-      @path = path.is_a?(ElFinder::Pathname) ? path.path : ::Pathname.new(path)
+      @path = path.is_a?(PathName) ? path.path : ::Pathname.new(path)
       if absolute?
         if @path.cleanpath.to_s.start_with?(@root.to_s)
           @path = ::Pathname.new @path.to_s.slice((@root.to_s.length + 1)..-1)
@@ -29,7 +29,7 @@ module Alchemy::Custom::Model::ElFinder
 
     #
     def +(other)
-      if other.is_a? ::ElFinder::Pathname
+      if other.is_a? PathN  ame
         other = other.path
       end
       self.class.new(@root, (@path + other).to_s)

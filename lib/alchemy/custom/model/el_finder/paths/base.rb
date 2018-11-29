@@ -12,10 +12,10 @@ module Alchemy::Custom::Model::ElFinder
 
         @volume = opts.delete(:volume)
 
-        @root = root.is_a?(Pathname) ? root.root : ::Pathname.new(root)
+        @root = root.is_a?(PathName) ? root.root : ::Pathname.new(root)
 
         @path = ::Pathname.new(path)
-        @path = path.is_a?(Pathname) ? path.path : ::Pathname.new(path)
+        @path = path.is_a?(PathName) ? path.path : ::Pathname.new(path)
         if absolute?
           if @path.cleanpath.to_s.start_with?(@root.to_s)
             @path = ::Pathname.new @path.to_s.slice((@root.to_s.length + 1)..-1)

@@ -22,7 +22,7 @@ module Alchemy::Custom::Model::ElFinder
               image_file: file
           )
           img.name = img.humanized_name
-          img.save
+          img.save!
           root_path.build_file_path(img)
         end
       end

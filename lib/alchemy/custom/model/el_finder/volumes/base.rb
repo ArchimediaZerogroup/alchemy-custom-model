@@ -58,7 +58,7 @@ module Alchemy::Custom::Model
 #   locked: 0,
 #   volumeid: "#{@id}_"
 # }
-          path_info(ElFinder::Pathname.new(@root, target))
+          path_info(PathName.new(@root, target))
         end
 
         # def path_info(target)
@@ -111,7 +111,7 @@ module Alchemy::Custom::Model
           if block_given?
             yield path
           else
-            ElFinder::Pathname.new(@root, path)
+            PathName.new(@root, path)
           end
 
         end

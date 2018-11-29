@@ -7,7 +7,7 @@ module Alchemy
         autoload :Ability
         autoload :Connector
         autoload :Image
-        autoload :Pathname
+        autoload :PathName
 
         # eager_autoload do
         # end

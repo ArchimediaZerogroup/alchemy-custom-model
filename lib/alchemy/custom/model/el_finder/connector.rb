@@ -46,7 +46,7 @@ module Alchemy::Custom::Model::ElFinder
       # raise(ArgumentError, "Image Handler is invalid") unless image_handler.nil? || ([:size, :resize, :thumbnail].all? {|m| image_handler.respond_to?(m)})
 
       @volumes = options[:volumes]
-      @root = Pathname.new(options[:root])
+      @root = PathName.new(options[:root])
 
       @headers = {}
       @response = {}

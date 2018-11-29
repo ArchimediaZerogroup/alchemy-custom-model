@@ -91,7 +91,7 @@ module Alchemy::Custom::Model::ElFinder
             target = Paths::Root.new(@root, '.', volume: self)
           else
             Rails.logger.debug {target.inspect}
-            target = Pathname.new(@root, target, volume: self)
+            target = PathName.new(@root, target)
           end
         end
 
