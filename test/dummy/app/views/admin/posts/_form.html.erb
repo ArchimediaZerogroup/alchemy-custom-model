@@ -1,0 +1,50 @@
+<%= base_form_container do %>
+  <div class="form_in_page">
+    <%= simple_form_for [:admin, @obj] do |f| %>
+      <fieldset>
+
+        <%= f.input :name %>
+        <%= rich_text_editor(f, :description) %>
+        <%= single_image_input(f, :picture) %>
+        <%= single_attachment_input(f, :file) %>
+
+      </fieldset>
+
+
+      <% if @obj.persisted? %>
+
+        <%= subobject(t(:comments), f, :comments, to_load: ".row_preparation",
+                      url_partial: new_cresco_cat_recipe_preparation_path(@obj),
+                      active_record_modifier: ->(relation) {relation.order(:position)}) do |frm| %>
+
+          <%= frm.input :author %>
+          <%= rich_text_editor(frm, :description) %>
+          <%= single_attachment_input(frm, :file) %>
+
+
+
+          <%
+            uid = frm.object.id
+            selector = "comment_gallery_#{uid}"
+          %>
+
+          <div id="<%= selector %>">
+            <% #FIXME completa questa parte con una sub gallery %>
+            <%= gallery_input(frm, :commet_gallery,
+                              partial_url: edit_cresco_cat_recipe_path(@recipe, :html),
+                              tags: @recipe.to_tag,
+                              partial_identifier: "##{selector}") %>
+          </div>
+
+
+        <% end %>
+
+
+      <% end %>
+
+      <%= f.submit Alchemy.t(:save) %>
+
+    <% end %>
+  </div>
+<% end %>
+
