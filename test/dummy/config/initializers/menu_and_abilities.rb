@@ -10,3 +10,4 @@ Alchemy::Modules.register_module({
                                  })
 
 Alchemy.register_ability(PostAbility)
+Alchemy.register_ability(CommentAbility)

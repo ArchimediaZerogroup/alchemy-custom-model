@@ -1,6 +1,6 @@
 <%= base_form_container do %>
   <div class="form_in_page">
-    <%= simple_form_for [:admin, @obj] do |f| %>
+    <%= simple_form_for [:admin, object] do |f| %>
       <fieldset>
 
         <%= f.input :name %>
@@ -11,11 +11,10 @@
       </fieldset>
 
 
-      <% if @obj.persisted? %>
+      <% if object.persisted? %>
 
         <%= subobject(t(:comments), f, :comments, to_load: ".row_preparation",
-                      url_partial: new_cresco_cat_recipe_preparation_path(@obj),
-                      active_record_modifier: ->(relation) {relation.order(:position)}) do |frm| %>
+                      url_partial: new_admin_post_comment_path(object)) do |frm| %>
 
           <%= frm.input :author %>
           <%= rich_text_editor(frm, :description) %>
@@ -29,10 +28,8 @@
           %>
 
           <div id="<%= selector %>">
-            <% #FIXME completa questa parte con una sub gallery %>
-            <%= gallery_input(frm, :commet_gallery,
-                              partial_url: edit_cresco_cat_recipe_path(@recipe, :html),
-                              tags: @recipe.to_tag,
+            <%= gallery_input(frm, :comment_pictures,
+                              partial_url: edit_admin_post_path(object, :html),
                               partial_identifier: "##{selector}") %>
           </div>
 

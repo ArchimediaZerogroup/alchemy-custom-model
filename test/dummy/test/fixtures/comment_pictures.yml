@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: comment_pictures
+#
+#  id         :integer          not null, primary key
+#  comment_id :integer
+#  picture_id :integer
+#  position   :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  comment_id: 1
+  picture_id: 1
+  position: 1
+
+two:
+  comment_id: 1
+  picture_id: 1
+  position: 1

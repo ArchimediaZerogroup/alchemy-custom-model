@@ -6,4 +6,15 @@ class Admin::PostsController < Alchemy::Custom::Model::Admin::BaseController
     Post
   end
 
+  def permitted_attributes
+    super + [:picture, :file, comments_attributes: [:author,
+                                                    :description,
+                                                    :file_id,
+                                                    :file,
+                                                    :_destroy,
+                                                    :id,
+                                                    comment_picture_attributes: [:id, :position]]
+    ]
+  end
+
 end

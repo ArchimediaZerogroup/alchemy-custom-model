@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
 
   namespace :admin do
-    resources :posts
+    resources :posts do
+      resources :comments, module: :posts
+    end
   end
 
 
