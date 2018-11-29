@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_27_142144) do
+ActiveRecord::Schema.define(version: 2018_11_29_072315) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -324,6 +324,15 @@ ActiveRecord::Schema.define(version: 2018_11_27_142144) do
     t.index ["lastname"], name: "index_alchemy_users_on_lastname"
     t.index ["login"], name: "index_alchemy_users_on_login", unique: true
     t.index ["reset_password_token"], name: "index_alchemy_users_on_reset_password_token", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "author"
+    t.text "description"
+    t.integer "file_id"
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "gutentag_taggings", force: :cascade do |t|

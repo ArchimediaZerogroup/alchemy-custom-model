@@ -1,27 +1,19 @@
 # == Schema Information
 #
-# Table name: posts
+# Table name: comments
 #
 #  id          :integer          not null, primary key
-#  name        :string
-#  picture_id  :integer
-#  file_id     :integer
-#  language_id :integer
+#  author      :string
 #  description :text
+#  file_id     :integer
+#  post_id     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 
-class Post < ApplicationRecord
-
+class Comment < ApplicationRecord
   include Alchemy::Custom::Model::ModelDecoration
 
   belongs_to :file, class_name: "Alchemy::Attachment", optional: true, foreign_key: :file_id
   global_id_setter :file
-
-  belongs_to :picture, class_name: 'Alchemy::Picture', optional: true, touch: true
-  global_id_setter :picture
-
-  has_many :comments, dependent: :destroy
-
 end
