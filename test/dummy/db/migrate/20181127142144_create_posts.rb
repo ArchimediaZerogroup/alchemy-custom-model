@@ -6,8 +6,12 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.integer :file_id
       t.integer :language_id
       t.text :description
+      t.string :slug
 
       t.timestamps
     end
+
+    add_index :posts, :slug, unique: true
+
   end
 end

@@ -371,8 +371,10 @@ ActiveRecord::Schema.define(version: 2018_11_29_131436) do
     t.integer "file_id"
     t.integer "language_id"
     t.text "description"
+    t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_posts_on_slug", unique: true
   end
 
   create_table "taggings", force: :cascade do |t|
