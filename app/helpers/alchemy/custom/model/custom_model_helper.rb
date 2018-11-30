@@ -1,34 +1,60 @@
 module Alchemy::Custom::Model
   module CustomModelHelper
 
-    def custom_model_page_urlname( obj)
+    def custom_model_page_urlname(obj)
       layout = Alchemy::PageLayout.get_all_by_attributes(custom_model: obj.class.to_s).select {|ly| ly["custom_model_action"] == "show"}.first
       if not layout.blank?
-        page = Alchemy::Language.current.pages.find_by(page_layout: layout["name"]).parent
-        page.urlname
+        Alchemy::Language.current.pages.find_by(page_layout: layout["name"]).try(:parent).try(:urlname)
       else
         nil
       end
     end
 
-    def custom_model_path( obj)
-      to_url = custom_model_page_urlname obj
-      if not to_url.blank?
-        alchemy.show_page_path(Alchemy::Language.current.code,
-                               "#{to_url || obj.try(:to_url) ||
-                                 obj.class.to_s.demodulize.parameterize.underscore}/#{obj.send(obj.class.try(:friendly_id_config).try(:slug_column)) ||
-                                 obj.id}")
-      else
-        "#no_page_show_custom_model"
+    def custom_model_path(obj)
+      custom_model_url_builder(obj) do |url|
+        alchemy.show_page_path(Alchemy::Language.current.code, url)
       end
     end
 
     def custom_model_url(obj)
+      custom_model_url_builder(obj) do |url|
+        alchemy.show_page_url(Alchemy::Language.current.code, url)
+      end
+    end
+
+    private
+
+    def custom_model_url_builder(obj)
       to_url = custom_model_page_urlname obj
-      alchemy.show_page_url(Alchemy::Language.current.code,
-                            "#{to_url || obj.try(:to_url) ||
-                              obj.class.to_s.demodulize.parameterize.underscore}/#{obj.send(obj.class.try(:friendly_id_config).try(:slug_column)) ||
-                              obj.id}")
+      if not to_url.blank?
+
+        # Url build with alchemy
+        url = to_url
+
+        # Url build with model method :to_url
+        url = obj.to_url if url.nil? and obj.respond_to?(:to_url)
+
+        # Url builded with friendly id
+        if url.nil?
+          url = obj.class.to_s.demodulize.parameterize.underscore
+        end
+
+        url += '/'
+
+        if obj.class.respond_to?(:friendly_id_config)
+          url += "#{obj.send(obj.class.friendly_id_config.slug_column)}"
+        else
+          url += "#{obj.id}"
+        end
+
+        if block_given?
+          yield url
+        else
+          url
+        end
+      else
+        "#no_page_show_custom_model"
+      end
     end
 
 
