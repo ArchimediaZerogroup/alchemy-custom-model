@@ -78,36 +78,6 @@ Alchemy::PagesHelper.module_eval do
   end
 
 
-  def custom_model_menu_recursive(inst)
-    sb = ActiveSupport::SafeBuffer.new
-    if inst.children.empty?
-      sb << content_tag(:li) do
-        link_to custom_model_path(inst) do
-          content_tag(:span, inst.name)
-        end
-      end
-    else
-      sb << content_tag(:li, class: "has_children") do
-        li = ActiveSupport::SafeBuffer.new
-        li << link_to(custom_model_path(inst)) do
-          content_tag(:span, inst.name)
-        end
-
-        li << content_tag(:ul) do
-          ul = ActiveSupport::SafeBuffer.new
-          inst.children.each do |ins|
-            ul << custom_model_menu_recursive(ins)
-          end
-          ul << menu_arrow_and_back_control
-          ul
-        end
-        li
-      end
-    end
-    sb
-  end
-
-
   def language_links_by_page(current_page)
     r = []
     Alchemy::Language.on_current_site.published.with_root_page.collect {|lang|
