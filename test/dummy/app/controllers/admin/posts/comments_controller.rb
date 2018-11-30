@@ -19,7 +19,7 @@ module Admin
       private
 
       def load_parent_obj
-        @post = Post.find params[:post_id]
+        @post = Post.friendly.find params[:post_id]
       end
 
       def base_class
