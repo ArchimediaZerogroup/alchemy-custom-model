@@ -8,6 +8,7 @@
 #  file_id     :integer
 #  post_id     :integer
 #  language_id :integer
+#  position    :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

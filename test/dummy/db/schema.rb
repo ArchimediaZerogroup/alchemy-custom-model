@@ -372,6 +372,11 @@ ActiveRecord::Schema.define(version: 2018_11_29_131436) do
     t.integer "language_id"
     t.text "description"
     t.string "slug"
+    t.text "meta_description"
+    t.text "meta_keywords"
+    t.string "meta_title"
+    t.boolean "robot_follow"
+    t.boolean "robot_index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_posts_on_slug", unique: true

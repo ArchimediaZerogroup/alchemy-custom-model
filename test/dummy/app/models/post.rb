@@ -2,17 +2,26 @@
 #
 # Table name: posts
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  picture_id  :integer
-#  file_id     :integer
-#  language_id :integer
-#  description :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id               :integer          not null, primary key
+#  name             :string
+#  picture_id       :integer
+#  file_id          :integer
+#  language_id      :integer
+#  description      :text
+#  slug             :string
+#  meta_description :text
+#  meta_keywords    :text
+#  meta_title       :string
+#  robot_follow     :boolean
+#  robot_index      :boolean
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
 
 class Post < ApplicationRecord
+  
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   include Alchemy::Custom::Model::ModelDecoration
 

@@ -7,6 +7,11 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.integer :language_id
       t.text :description
       t.string :slug
+      t.text :meta_description
+      t.text :meta_keywords
+      t.string :meta_title
+      t.boolean :robot_follow
+      t.boolean :robot_index
 
       t.timestamps
     end
