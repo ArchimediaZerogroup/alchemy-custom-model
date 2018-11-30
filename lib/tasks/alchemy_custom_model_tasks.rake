@@ -28,6 +28,10 @@ namespace :alchemy_custom_model do
     # Task goes here
     install_helper = Alchemy::Custom::Model::InstallTask.new
 
+    #installa friendly_id
+    system("rails generate friendly_id")
+    system("bin/rails db:migrate")
+
     system("yarn add alchemy-custom-model") || exit!(1)
 
     install_helper.inject_assets

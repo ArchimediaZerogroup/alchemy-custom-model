@@ -23,3 +23,4 @@ gem 'alchemy_i18n', github: 'AlchemyCMS/alchemy_i18n', branch: 'master'
 
 gem 'better_errors'
 gem 'binding_of_caller'
+gem 'annotate'

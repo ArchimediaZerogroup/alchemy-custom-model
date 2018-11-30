@@ -21,6 +21,7 @@ PATH
     alchemy-custom-model (0.1.0)
       alchemy_cms (~> 4.0)
       el_finder (~> 1.1, >= 1.1.13)
+      friendly_id (~> 5.2, >= 5.2.4)
       jquery-ui-rails (~> 6.0)
 
 GEM
@@ -96,6 +97,9 @@ GEM
       select2-rails (>= 3.5.9.1, < 4.0)
       simple_form (~> 4.0)
       turbolinks (>= 2.5)
+    annotate (2.7.4)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 13.0)
     arel (9.0.0)
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
@@ -137,6 +141,8 @@ GEM
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.25)
+    friendly_id (5.2.4)
+      activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     gutentag (2.4.0)
@@ -275,6 +281,7 @@ DEPENDENCIES
   alchemy-custom-model!
   alchemy-devise!
   alchemy_i18n!
+  annotate
   better_errors
   binding_of_caller
   sass-rails
