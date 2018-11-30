@@ -30,9 +30,6 @@ module Alchemy::Custom::Model
         self.class.to_s.demodulize.titleize
       end
 
-      def seo_model(page)
-        SeoModel.new(self, page)
-      end
 
 
       # module ClassMethods

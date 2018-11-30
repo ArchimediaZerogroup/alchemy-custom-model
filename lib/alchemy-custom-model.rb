@@ -14,7 +14,6 @@ module Alchemy
       autoload :ModelDecoration
       autoload :TranslationScope
       autoload :PagesControllerDec
-      autoload :SeoModel
 
 
       mattr_accessor :base_admin_controller_class
