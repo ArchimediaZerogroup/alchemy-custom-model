@@ -29,10 +29,20 @@ bin/rails  alchemy_custom_model:install
 ## Usage
 
 * Generate your model
-** remember to append a column for language:
-```ruby
-        t.integer :language_id
-```
+
+  * remember to append a column for language:
+    ```ruby
+            t.integer :language_id
+    ```
+  * if this model would have a custom url and the relative layout, go to the 
+    [friendly_id page](https://github.com/norman/friendly_id) to make the correct install
+  * we can define on the model this attributes to be used for page SEO:
+    * text    :meta_description
+    * text    :meta_keywords
+    * string  :meta_title
+    * boolean :robot_follow
+    * boolean :robot_index
+    
 * include the model decorator
 ```ruby
 

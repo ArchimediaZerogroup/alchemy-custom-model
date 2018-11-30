@@ -30,6 +30,11 @@ module Alchemy::Custom::Model
         self.class.to_s.demodulize.titleize
       end
 
+      def seo_model(page)
+        SeoModel.new(self, page)
+      end
+
+
       # module ClassMethods
       #   def custom_model *translate_fields, friendly: nil
       #     if !column_names.include? "site_id"

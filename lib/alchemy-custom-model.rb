@@ -1,6 +1,7 @@
 require "alchemy_cms"
 require "jquery/ui/rails"
 require "el_finder"
+require "friendly_id"
 require "alchemy/custom/model/engine"
 
 
@@ -13,6 +14,7 @@ module Alchemy
       autoload :ModelDecoration
       autoload :TranslationScope
       autoload :PagesControllerDec
+      autoload :SeoModel
 
 
       mattr_accessor :base_admin_controller_class

@@ -23,32 +23,12 @@ Alchemy::PagesHelper.module_eval do
   end
 
 
-  def meta_description
-    if !@custom_element.nil? and @custom_element.respond_to? :meta_description
-      return @custom_element.meta_description.presence || @page.meta_description
-    else
-      return @page.meta_description.presence || Alchemy::Language.current_root_page.try(:meta_description)
-    end
+  # @return [Alchemy::Custom::Model::SeoModel]
+  def custom_element_seo
+    @custom_element.seo_model(@page)
   end
 
-  def meta_keywords
-    if !@custom_element.nil? and @custom_element.respond_to? :meta_keywords
-      return @custom_element.meta_keywords.presence || @page.meta_keywords
-    else
-      return (!@custom_element.nil? and @custom_element.meta_keywords) || @page.meta_keywords.presence || Alchemy::Language.current_root_page.try(:meta_keywords)
-    end
-  end
-
-  def meta_robots
-    return "noindex,nofollow" if Rails.env.to_sym != :production
-
-    if !@custom_element.nil? and @custom_element.respond_to? :robot_index? and @custom_element.respond_to? :robot_follow?
-      "#{(@custom_element.robot_index?.presence or @page.robot_index?) ? '' : 'no'}index, #{(@custom_element.robot_follow?.presence || @page.robot_follow?) ? '' : 'no'}follow"
-    else
-      "#{ @page.robot_index? ? '' : 'no'}index, #{@page.robot_follow? ? '' : 'no'}follow"
-
-    end
-  end
+  delegate :meta_description,:meta_keywords,:meta_title,to: :custom_element_seo
 
   def menu_arrow_and_back_control
     bf = ActiveSupport::SafeBuffer.new
@@ -111,7 +91,6 @@ Alchemy::PagesHelper.module_eval do
     }
     r.join().html_safe
   end
-
 
 
 end
