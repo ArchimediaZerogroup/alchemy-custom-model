@@ -22,7 +22,7 @@ module Alchemy
 
 
       def self.admin_controller_class
-        @_admin_class ||= @@base_admin_controller_class.constantize
+        @@base_admin_controller_class.constantize
       end
     end
   end
