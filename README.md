@@ -115,7 +115,7 @@ git clone --recursive git@github.com:ArchimediaZerogroup/alchemy-custom-model.gi
 
 docker build -t alchemy_custom_image .
 
-docker run -itP --rm -v "$(pwd)":/app alchemy_custom_image bin/rails s -b 0.0.0.0
+docker run -it -p3000:3000 --rm -v "$(pwd)":/app alchemy_custom_image bin/rails s -b 0.0.0.0
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
