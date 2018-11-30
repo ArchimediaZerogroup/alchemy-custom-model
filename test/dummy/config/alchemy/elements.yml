@@ -18,6 +18,10 @@
     default: :article_text
     hint: true
 
-- name: comments_list
+- name: post_list
+  unique: true
+  hint: false
+
+- name: post_show
   unique: true
   hint: false

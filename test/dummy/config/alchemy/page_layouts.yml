@@ -4,5 +4,18 @@
 
 - name: index
   unique: true
-  elements: [article, comments_list]
+  elements: [article]
   autogenerate: [article]
+
+
+- name: posts
+  elements: [post_list]
+  custom_model: "Post"
+  custom_model_action: "index"
+  cache: false
+
+- name: post_show
+  elements: [post_show]
+  custom_model: "Post"
+  custom_model_action: "show"
+  cache: false

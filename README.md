@@ -108,6 +108,22 @@ bin/rails  alchemy_custom_model:install
   belongs_to :picture, class_name: 'Alchemy::Picture', touch: true
   belongs_to :alchemy_file_instance, class_name: 'Alchemy::Picture', foreign_key: :picture_id #relazione generica per i files utilizzata nel volume di elfinder
 ```
+* Per la visualizzazione creare quindi un layout in Alchemy con attributi custom_model e custom_model_action che serve per identificare 
+la generazione dei link index e show
+```yml
+- name: layout_name_list
+  elements: [element_for_list]
+  custom_model: "CustomModelClass"
+  custom_model_action: "index"
+  cache: false
+
+- name: layout_name_show
+  elements: [element_for_show]
+  custom_model: "CustomModelClass"
+  custom_model_action: "show"
+  cache: false
+```  
+* E' necessario quindi creare le due pagine nella struttura di alchemy 
 
 ## Development
 

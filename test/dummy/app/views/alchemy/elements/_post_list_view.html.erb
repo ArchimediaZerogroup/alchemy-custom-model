@@ -1,0 +1,9 @@
+<div>
+  <% Post.all.each do |rc| %>
+    <div>
+      <%= link_to custom_model_path(rc) do %>
+        <%= rc.name %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
