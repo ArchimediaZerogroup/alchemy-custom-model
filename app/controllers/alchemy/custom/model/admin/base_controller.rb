@@ -53,7 +53,7 @@ module Alchemy::Custom::Model
         if @obj.update_attributes(clean_params)
           after_successful_create
         else
-          atfer_unsuccessfull_create
+          after_unsuccessfull_create
         end
 
       end
