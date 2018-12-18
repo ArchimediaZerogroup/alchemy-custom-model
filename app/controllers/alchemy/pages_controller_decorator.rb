@@ -1,1 +1,1 @@
-Alchemy::PagesController.include PagesControllerDec
+Alchemy::PagesController.include Alchemy::Custom::Model::PagesControllerDec
