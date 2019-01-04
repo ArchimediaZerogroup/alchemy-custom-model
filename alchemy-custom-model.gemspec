@@ -16,8 +16,11 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile",
                 "README.md",
-                'vendor/elfinder/css/*',
-                'vendor/elfinder/js/elfinder.*.js']
+                'vendor/elfinder/css/theme.css',
+                'vendor/elfinder/css/elfinder.min.css',
+                'vendor/elfinder/img/*',
+                'vendor/elfinder/js/elfinder.min.js',
+                'vendor/assets/{javascripts,stylesheets}/**/*']
 
   s.add_dependency 'alchemy_cms', '~> 4.0'
   s.add_dependency "jquery-ui-rails", "~> 6.0"
