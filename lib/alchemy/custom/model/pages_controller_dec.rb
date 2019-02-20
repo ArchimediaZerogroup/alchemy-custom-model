@@ -26,7 +26,7 @@ module Alchemy::Custom::Model
             @q = custom_model.ransack(params[:q])
             @custom_elements = @q.result.
               page(params[:page]).per(params[:per_page])
-            @custom_elements.only_current_language
+            @custom_elements = @custom_elements.only_current_language
             instance_variable_set("@#{custom_model_string.demodulize.downcase.pluralize}", @custom_elements)
           end
 
