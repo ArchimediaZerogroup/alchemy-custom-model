@@ -44,19 +44,22 @@ module Alchemy::Custom::Model
               language_code: params[:locale] || Alchemy::Language.current.code
             )
 
+            if parent_page.nil?
+              raise ActionController::RoutingError, "Parent Page not Found [#{url_params[:page_name]}]"
+            end
 
             #TODO magari implementare ricerca children in base a una action es. edit new chow ecc
 
             @page = parent_page.children.first
 
             if @page.nil?
-              raise "You have to define a subpage for custom model"
+              raise ActionController::RoutingError, "You have to define a subpage for custom model"
             end
 
             custom_model_string = get_custom_model_string
 
             if custom_model_string.blank?
-              raise "You have to specify custom_model in page_layouts config file"
+              raise ActionController::RoutingError, "You have to specify custom_model in page_layouts config file"
             else
               custom_model = custom_model_string.classify.constantize
               @custom_element = custom_model.only_current_language.friendly.find(url_params[:custom_model_id])
