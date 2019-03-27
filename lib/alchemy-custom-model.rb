@@ -10,6 +10,7 @@ module Alchemy
     module Model
       extend ActiveSupport::Autoload
 
+      autoload :ElFinder
       autoload :GlobalIdSetter
       autoload :ModelDecoration
       autoload :TranslationScope

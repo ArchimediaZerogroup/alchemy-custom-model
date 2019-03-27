@@ -8,6 +8,8 @@ module Alchemy
         autoload :Connector
         autoload :Image
         autoload :PathName
+        autoload :Paths
+        autoload :Volumes
 
         # eager_autoload do
         # end
