@@ -61,7 +61,7 @@ module Alchemy::Custom::Model
 
       class << self
 
-        mattr_accessor :parent_model_name, :parent_klass, :parent_find_method
+        class_attribute :parent_model_name, :parent_klass, :parent_find_method
 
         def belongs_to(model_name, options = {})
           prepend_before_action :load_parent
