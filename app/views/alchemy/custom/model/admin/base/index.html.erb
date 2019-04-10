@@ -1,3 +1,4 @@
+
 <% content_for(:toolbar) do %>
   <%= render 'alchemy/admin/partials/site_select' %>
   <%= render 'language_tree_select' %>
@@ -5,19 +6,49 @@
   <%= render partial: 'search_box', locals: {url: polymorphic_path(url_namespace), base_class: base_class} %>
 <% end %>
 
+
+<%
+  buttons = []
+
+  buttons << {
+      icon: :plus,
+      label: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
+      url: new_polymorphic_path(url_namespace),
+      title: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
+      hotkey: 'alt+n',
+      dialog: false,
+      if_permitted_to: [:create, base_class]
+  }
+
+  if check_presence_polymorphic_path(url_namespace)
+
+    buttons << {
+        icon: :random,
+        label: "pppp",
+        url: new_polymorphic_path(url_namespace),
+        title: "ggg",
+        hotkey: 'alt+n',
+        dialog: false,
+        if_permitted_to: [:update, base_class]
+    }
+
+  end
+
+%>
+
 <% toolbar(
-     buttons: [
-       {
-         icon: :plus,
-         label: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
-         url: new_polymorphic_path(url_namespace),
-         title: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
-         hotkey: 'alt+n',
-         dialog: false,
-         if_permitted_to: [:create, base_class]
-       }
-     ],
-     search: false,
+       buttons: [
+           {
+               icon: :plus,
+               label: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
+               url: new_polymorphic_path(url_namespace),
+               title: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
+               hotkey: 'alt+n',
+               dialog: false,
+               if_permitted_to: [:create, base_class]
+           }
+       ],
+       search: false,
    ) %>
 
 

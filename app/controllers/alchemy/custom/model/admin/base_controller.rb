@@ -95,7 +95,7 @@ module Alchemy::Custom::Model
         raise '-- Override Method base_class'
       end
 
-      def url_namespace(obj=base_class)
+      def url_namespace(obj = base_class)
         [:admin, obj]
       end
 
@@ -170,11 +170,13 @@ module Alchemy::Custom::Model
 
 
       def load_parent
-        unless self.class.parent_model_name.blank?
-          @parent = self.class.parent_klass.
-            find_by("#{self.class.parent_find_method.to_s}": params["#{parent_model_name_demodulized}_id"])
+        if params["#{parent_model_name_demodulized}_id"]
+          unless self.class.parent_model_name.blank?
+            @parent = self.class.parent_klass.
+              find_by("#{self.class.parent_find_method.to_s}": params["#{parent_model_name_demodulized}_id"])
 
-          instance_variable_set("@#{parent_model_name_demodulized}", @parent)
+            instance_variable_set("@#{parent_model_name_demodulized}", @parent)
+          end
         end
       end
 
