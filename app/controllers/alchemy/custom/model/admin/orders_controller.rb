@@ -10,7 +10,7 @@ module Alchemy::Custom::Model
       private
 
       def url_namespace
-        [:admin,base_class.to_s.underscore, :order]
+        [:admin,base_class.to_s.underscore.pluralize, :order]
       end
 
 

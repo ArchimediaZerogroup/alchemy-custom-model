@@ -14,5 +14,13 @@ module Alchemy::Custom::Model
       end
     end
 
+    def order_path(options = {})
+      new_polymorphic_path([:admin, base_class.to_s.pluralize.underscore, :order])
+    end
+
+
+
+
+
   end
 end

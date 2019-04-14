@@ -20,34 +20,22 @@
       if_permitted_to: [:create, base_class]
   }
 
-  if check_presence_polymorphic_path(url_namespace)
-
+  if order_path
     buttons << {
         icon: :random,
-        label: "pppp",
-        url: new_polymorphic_path(url_namespace),
-        title: "ggg",
+        label: acm_t(:title_action, action: acm_t(:order, scope: :actions), model: base_class.model_name.human),
+        url: order_path,
+        title: acm_t(:title_action, action: acm_t(:order, scope: :actions), model: base_class.model_name.human),
         hotkey: 'alt+n',
         dialog: false,
-        if_permitted_to: [:update, base_class]
+        if_permitted_to: [:order, base_class]
     }
-
   end
 
 %>
 
 <% toolbar(
-       buttons: [
-           {
-               icon: :plus,
-               label: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
-               url: new_polymorphic_path(url_namespace),
-               title: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
-               hotkey: 'alt+n',
-               dialog: false,
-               if_permitted_to: [:create, base_class]
-           }
-       ],
+       buttons: buttons,
        search: false,
    ) %>
 

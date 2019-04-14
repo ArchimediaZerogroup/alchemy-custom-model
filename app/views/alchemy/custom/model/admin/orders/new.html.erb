@@ -1,0 +1,32 @@
+<% toolbar(
+       buttons: [
+           {
+               icon: "angle-double-left ",
+               label: t(:show_all),
+               url: index_ordered_path,
+               title:  t(:show_all),
+               hotkey: 'alt+b',
+               dialog: false,
+               if_permitted_to: [:index, parent_klass]
+           }
+
+       ],
+       search: false
+   ) %>
+
+
+<%= base_form_container do %>
+
+  <div id="sort_panel">
+    <div class="info message"><i class="icon fa-fw fa-info fas"></i>
+      <%= t(:suggestion) %>
+    </div>
+    <div class="buttons">
+      <button name="button" type="submit" id="save_order"><%= t(:save_order) %>
+      </button>
+    </div>
+  </div>
+
+  <%= print_order_tree %>
+
+<% end %>

@@ -5,6 +5,7 @@ module Alchemy::Custom::Model
     included do
 
       before_action :check_parent
+      helper_method :parent_klass
 
 
       def new
@@ -28,6 +29,11 @@ module Alchemy::Custom::Model
         redirect_to polymorphic_path([:admin, self.parent_klass])
       end
 
+      protected
+
+      def parent_klass
+        self.class.parent_klass
+      end
 
       private
 
@@ -35,6 +41,10 @@ module Alchemy::Custom::Model
         if self.parent_klass.nil?
           raise Errors::ParentNil
         end
+      end
+
+      def base_class
+        parent_klass
       end
 
 
