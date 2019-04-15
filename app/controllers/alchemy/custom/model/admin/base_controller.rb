@@ -58,6 +58,14 @@ module Alchemy::Custom::Model
 
       end
 
+      def show
+        if @obj.respond_to? :children
+          @objects = @obj.children
+        else
+          @objects = []
+        end
+      end
+
 
       class << self
 

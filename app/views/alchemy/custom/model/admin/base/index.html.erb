@@ -20,7 +20,7 @@
       if_permitted_to: [:create, base_class]
   }
 
-  if order_path
+  if exist_order_path?
     buttons << {
         icon: :random,
         label: acm_t(:title_action, action: acm_t(:order, scope: :actions), model: base_class.model_name.human),

@@ -22,11 +22,11 @@
       <%= t(:suggestion) %>
     </div>
     <div class="buttons">
-      <button name="button" type="submit" id="save_order"><%= t(:save_order) %>
+      <button name="button" type="submit" id="save_order" data-url-update=<%= update_order_path %>><%= t(:save_order) %>
       </button>
     </div>
   </div>
 
-  <%= print_order_tree %>
+  <%= print_order_tree sort: true %>
 
 <% end %>

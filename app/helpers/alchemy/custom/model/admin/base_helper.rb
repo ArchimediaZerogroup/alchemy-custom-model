@@ -376,4 +376,37 @@ module Alchemy::Custom::Model::Admin::BaseHelper
   end
 
 
+  def order_path(options = {})
+    new_polymorphic_path([:admin, base_class.to_s.pluralize.underscore, :order])
+  end
+
+  def exist_order_path?
+    order_path
+    true
+  rescue NoMethodError
+    false
+  end
+
+  def print_order_tree(sort: false)
+    sortable_class = "sortaable_tree" if sort
+    content_tag(:ol, class: "order_tree margined #{sortable_class}", id: "sort_tree") do
+      el_buf = ActiveSupport::SafeBuffer.new
+      @elements.each do |el|
+        el_buf << content_tag(:li, id: print_order_identify(el)) do
+          sb = ActiveSupport::SafeBuffer.new
+          sb << content_tag(:div, class: "el_block") do
+            div = ActiveSupport::SafeBuffer.new
+            div << print_sort_icon(el)
+            div << content_tag(:div, class: "el_value") do
+              printelement_to_order el
+            end
+          end
+          sb
+        end
+      end
+      el_buf
+    end
+  end
+
+
 end

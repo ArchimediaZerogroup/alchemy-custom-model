@@ -1,3 +1,9 @@
+<% if check_presence_polymorphic_path(url_namespace(obj)) and can?(:show, base_class) %>
+  <%= link_to fa_icon("eye"), polymorphic_path(url_namespace(obj)),
+              title: t(:show, model: base_class.model_name.human),
+              class: "show" %>
+<% end %>
+
 <% if can?(:edit, base_class) %>
   <%= link_to fa_icon("edit"), edit_polymorphic_path(url_namespace(obj)),
               title: t(:edit),
@@ -9,6 +15,8 @@
               title: t(:clone, model: base_class.model_name.human),
               class: "clone" %>
 <% end %>
+
+
 
 
 <% if can?(:destroy, base_class) %>
