@@ -4,6 +4,7 @@ module Alchemy::Custom::Model
 
 
       skip_before_action :load_object
+      skip_before_action :clean_slug
 
       include Alchemy::Custom::Model::Order
 

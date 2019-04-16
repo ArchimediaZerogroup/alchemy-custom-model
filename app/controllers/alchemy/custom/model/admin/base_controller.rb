@@ -2,6 +2,8 @@ module Alchemy::Custom::Model
   module Admin
     class BaseController < Alchemy::Custom::Model.admin_controller_class
 
+      class_attribute :method_for_show, instance_accessor: false
+
       before_action :authorize_resource
       before_action :clean_slug, only: [:create, :update]
       before_action :set_language, unless: -> {params[:language_id].nil?}
@@ -59,10 +61,16 @@ module Alchemy::Custom::Model
       end
 
       def show
-        if @obj.respond_to? :children
-          @objects = @obj.children
+        if @obj.respond_to? self.class.method_for_show
+          @objects = @obj.send(self.class.method_for_show.to_sym)
+          @objects = @objects.accessible_by(current_ability)
+          @objects = @objects.page(params[:page]).
+              per(params[:per_page] ||
+                      (base_class::DEFAULT_PER_PAGE if base_class.const_defined? :DEFAULT_PER_PAGE) ||
+                      25)
+          instance_variable_set "@#{self.class.method_for_show.to_s.underscore.downcase.pluralize}", @objects
         else
-          @objects = []
+          @objects = base_class.none
         end
       end
 
@@ -192,6 +200,7 @@ module Alchemy::Custom::Model
         self.class.parent_model_name.
           classify.demodulize.underscore
       end
+
 
 
     end
