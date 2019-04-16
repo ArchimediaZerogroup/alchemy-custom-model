@@ -13,12 +13,16 @@ $(document).on("turbolinks:load",function () {
     $("#save_order").click(function(){
 
         var array_positions = $('#sort_tree').nestedSortable("toHierarchy");
-        var url = $('#sort_tree').data("url-update");
-        $.post({
+        var url = $('#save_order').data("url-update");
+
+        $.ajax({
             url: url,
-            data: JSON.stringify({data: array_positions}),
-            contentType: "application/json;charset=utf-8"
-        });
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({ordered_data: array_positions}),
+            method: "PUT"
+
+        })
+
 
     });
 
