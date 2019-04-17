@@ -3,8 +3,12 @@ module Alchemy::Custom::Model::Admin::OrdersHelper
     new_polymorphic_path([:admin, base_class.to_s.pluralize.underscore, :order], options)
   end
 
-  def index_ordered_path(options = {})
-    polymorphic_path([:admin, base_class], options)
+  def index_ordered_path(obj = nil, options = {})
+    if obj.nil?
+      polymorphic_path([:admin, base_class], options)
+    else
+      polymorphic_path([:admin, obj], options)
+    end
   end
 
   def update_order_path(options = {})
@@ -26,8 +30,6 @@ module Alchemy::Custom::Model::Admin::OrdersHelper
       content_tag(:i, nil, {class: "fa fa-arrow-right"})
     end
   end
-
-
 
 
 end

@@ -1,7 +1,7 @@
 
 $(document).on("turbolinks:load",function () {
 
-    $('.sortaable_tree').nestedSortable({
+    $('.sortable_tree').nestedSortable({
         handle: 'div',
         items: 'li',
         cursor: 'pointer',

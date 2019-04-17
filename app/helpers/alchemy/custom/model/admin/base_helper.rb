@@ -395,7 +395,7 @@ module Alchemy::Custom::Model::Admin::BaseHelper
   end
 
   def print_order_tree(sort: false)
-    sortable_class = "sortaable_tree" if sort
+    sortable_class = "sortable_tree" if sort
     content_tag(:ol, class: "order_tree margined #{sortable_class}", id: "sort_tree") do
       el_buf = ActiveSupport::SafeBuffer.new
       @elements.each do |el|
