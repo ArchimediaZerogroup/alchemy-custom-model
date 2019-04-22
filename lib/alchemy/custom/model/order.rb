@@ -9,6 +9,7 @@ module Alchemy::Custom::Model
 
 
       def new
+        @obj = @parent
         if @parent.nil?
           if self.parent_klass.respond_to? :only_current_language
             @elements = self.parent_klass.only_current_language
@@ -16,6 +17,14 @@ module Alchemy::Custom::Model
             @elements = self.parent_klass.all
           end
         else
+
+          if @parent.respond_to? self.class.method_for_show
+            @elements = @parent.send(self.class.method_for_show.to_sym)
+            @elements = @elements.accessible_by(current_ability)
+
+          else
+            @elements = base_class.none
+          end
 
         end
       end
