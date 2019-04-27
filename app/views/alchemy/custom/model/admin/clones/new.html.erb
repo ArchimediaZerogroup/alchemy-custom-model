@@ -1,0 +1,40 @@
+<div class="base-errors">
+  <% @obj.errors[:base].each do |err| %>
+    <%= err %>
+    <br>
+  <% end %>
+</div>
+
+<%= simple_form_for @obj, url: polymorphic_path([:admin, @parent, :clone]),
+                    method: :post, remote: true, html: {class: "form_cloner"} do |f| %>
+
+  <%= f.input :site_id, as: :select, collection: sites_for_select,
+              input_html: {id: "select_site_clone", class: "alchemy_selectbox"} %>
+
+  <%= f.input :language_id, as: :select,
+              collection: Alchemy::Language.all.
+                  map {|l| [l.name, l.id, {data: {site_id: l.site.id}}]},
+              input_html: {id: "select_language_clone", class: "alchemy_selectbox"} %>
+
+
+  <div class="submit">
+    <%= f.submit t(:clone, model: @parent.class.model_name.human) %>
+  </div>
+
+
+<% end %>
+
+<script type="text/javascript">
+
+
+    $("#select_site_clone").select2filter({
+        elementToFilter: "#select_language_clone",
+        hideparam: "site-id"
+    });
+
+    $("#select_language_clone").select2filter({
+        elementToFilter: "#select_category_clone",
+        hideparam: "language-id"
+    });
+
+</script>
