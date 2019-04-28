@@ -365,11 +365,16 @@ module Alchemy::Custom::Model::Admin::BaseHelper
   end
 
 
-  def check_presence_polymorphic_path(record_or_hash_or_array, options = {})
+  def check_presence_polymorphic_path(record_or_hash_or_array, method = :get, options = {})
     begin
-      polymorphic_path record_or_hash_or_array, options
-      true
-    rescue NoMethodError
+      url = polymorphic_path record_or_hash_or_array, options
+      route_hash = Rails.application.routes.recognize_path(url, :method => method)
+      if route_hash[:controller] != "alchemy/pages"
+        true
+      else
+        false
+      end
+    rescue NoMethodError, ActionController::RoutingError
       false
     end
   end

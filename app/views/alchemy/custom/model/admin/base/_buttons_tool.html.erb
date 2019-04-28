@@ -1,4 +1,5 @@
-<% if check_presence_polymorphic_path(url_namespace(obj)) and can?(:show, base_class) %>
+<% obj = local_assigns.fetch(:obj) %>
+<% if check_presence_polymorphic_path(url_namespace(obj), :get) and can?(:show, base_class) %>
   <%= link_to fa_icon("eye"), polymorphic_path(url_namespace(obj)),
               title: t(:show, model: base_class.model_name.human),
               class: "show" %>
@@ -10,7 +11,7 @@
               class: "edit" %>
 <% end %>
 
-<% if check_presence_polymorphic_path(url_namespace(obj)+[:clone], action: :new) and can?(:clones, base_class) %>
+<% if check_presence_polymorphic_path(url_namespace(obj)+[:clone], :get, action: :new) and can?(:clones, base_class) %>
   <%= link_to_dialog fa_icon("clone"), new_polymorphic_path(url_namespace(obj)+[:clone]),
               title: t(:clone, model: base_class.model_name.human),
               class: "clone" %>
