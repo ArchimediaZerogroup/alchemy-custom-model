@@ -18,7 +18,8 @@ GIT
 PATH
   remote: .
   specs:
-    alchemy-custom-model (0.1.6)
+    alchemy-custom-model (0.1.7)
+      active_type (~> 0.7)
       alchemy_cms (~> 4.0)
       el_finder (~> 1.1, >= 1.1.13)
       friendly_id (~> 5.2, >= 5.2.4)
@@ -53,6 +54,8 @@ GEM
     active_model_serializers (0.9.7)
       activemodel (>= 3.2)
       concurrent-ruby (~> 1.0)
+    active_type (0.7.5)
+      activerecord (>= 3.2)
     activejob (5.2.1)
       activesupport (= 5.2.1)
       globalid (>= 0.3.6)
