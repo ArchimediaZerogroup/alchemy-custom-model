@@ -1,30 +1,21 @@
-
-<% content_for(:toolbar) do %>
-  <%= render 'alchemy/admin/partials/site_select' %>
-  <%= render 'language_tree_select' %>
-  <%= print_current_site_language %>
-  <%= render partial: 'search_box', locals: {url: polymorphic_path(url_namespace), base_class: base_class} %>
-<% end %>
-
-
 <%
   buttons = []
 
   buttons << {
-      icon: :plus,
-      label: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
-      url: new_polymorphic_path(url_namespace),
-      title: acm_t(:title_action, action: acm_t(:new, scope: :actions), model: base_class.model_name.human),
-      hotkey: 'alt+n',
+      icon: "angle-double-left ",
+      label: acm_t(:title_action, action: t(:index, scope: :actions), model: base_class.model_name.human),
+      url: polymorphic_path(url_namespace),
+      title: acm_t(:title_action, action: t(:index, scope: :actions), model: base_class.model_name.human),
+      hotkey: 'alt+b',
       dialog: false,
-      if_permitted_to: [:create, base_class]
+      if_permitted_to: [:index, @obj.class]
   }
 
-  if exist_order_path?
+  if exist_order_path? @obj
     buttons << {
         icon: :random,
         label: acm_t(:title_action, action: acm_t(:order, scope: :actions), model: base_class.model_name.human),
-        url: order_path,
+        url: order_path(@obj),
         title: acm_t(:title_action, action: acm_t(:order, scope: :actions), model: base_class.model_name.human),
         hotkey: 'alt+n',
         dialog: false,
@@ -34,9 +25,10 @@
 
 %>
 
+
 <% toolbar(
        buttons: buttons,
-       search: false,
+       search: false
    ) %>
 
 
@@ -54,5 +46,3 @@
   </div>
 
 <% end %>
-
-

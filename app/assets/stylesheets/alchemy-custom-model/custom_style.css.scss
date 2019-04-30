@@ -226,3 +226,53 @@
   }
 }
 
+.order_tree{
+
+  &.margined {
+    padding-top: 100px;
+  }
+
+  .el_block{
+
+    height: 32px;
+    margin: 12px 0;
+    position: relative;
+    transition: background-color 250ms;
+
+    &:hover {
+      background-color: rgba(251, 251, 216, 0.5);
+      border-radius: 3px;
+    }
+
+    .icon {
+      position: relative;
+      width: 32px;
+      line-height: 32px;
+      float: left;
+      padding: 0 8px;
+      text-align: center;
+    }
+
+    .el_value {
+      border-bottom-left-radius: 3px;
+      border-top-left-radius: 3px;
+      line-height: 28px;
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.75);
+
+      .el_title {
+        display: block;
+        padding: 0 10px;
+        margin: 2px;
+        text-decoration: none;
+      }
+
+      &.disabled {
+        background-color: #efefef;
+      }
+    }
+
+  }
+
+}
+

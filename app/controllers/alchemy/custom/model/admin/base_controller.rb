@@ -2,6 +2,8 @@ module Alchemy::Custom::Model
   module Admin
     class BaseController < Alchemy::Custom::Model.admin_controller_class
 
+      class_attribute :method_for_show, instance_accessor: false
+
       before_action :authorize_resource
       before_action :clean_slug, only: [:create, :update]
       before_action :set_language, unless: -> {params[:language_id].nil?}
@@ -58,6 +60,20 @@ module Alchemy::Custom::Model
 
       end
 
+      def show
+        if @obj.respond_to? self.class.method_for_show
+          @objects = @obj.send(self.class.method_for_show.to_sym)
+          @objects = @objects.accessible_by(current_ability)
+          @objects = @objects.page(params[:page]).
+              per(params[:per_page] ||
+                      (base_class::DEFAULT_PER_PAGE if base_class.const_defined? :DEFAULT_PER_PAGE) ||
+                      25)
+          instance_variable_set "@#{self.class.method_for_show.to_s.underscore.downcase.pluralize}", @objects
+        else
+          @objects = base_class.none
+        end
+      end
+
 
       class << self
 
@@ -95,7 +111,7 @@ module Alchemy::Custom::Model
         raise '-- Override Method base_class'
       end
 
-      def url_namespace(obj=base_class)
+      def url_namespace(obj = base_class)
         [:admin, obj]
       end
 
@@ -170,11 +186,13 @@ module Alchemy::Custom::Model
 
 
       def load_parent
-        unless self.class.parent_model_name.blank?
-          @parent = self.class.parent_klass.
-            find_by("#{self.class.parent_find_method.to_s}": params["#{parent_model_name_demodulized}_id"])
+        if params["#{parent_model_name_demodulized}_id"]
+          unless self.class.parent_model_name.blank?
+            @parent = self.class.parent_klass.
+              find_by("#{self.class.parent_find_method.to_s}": params["#{parent_model_name_demodulized}_id"])
 
-          instance_variable_set("@#{parent_model_name_demodulized}", @parent)
+            instance_variable_set("@#{parent_model_name_demodulized}", @parent)
+          end
         end
       end
 
@@ -182,6 +200,7 @@ module Alchemy::Custom::Model
         self.class.parent_model_name.
           classify.demodulize.underscore
       end
+
 
 
     end

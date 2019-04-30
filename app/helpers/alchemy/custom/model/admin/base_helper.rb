@@ -61,10 +61,10 @@ module Alchemy::Custom::Model::Admin::BaseHelper
           bf2 << link_to("#", class: 'open_el_finder',
                          title: t("elfinder.edit_image_button"),
                          data: {
-                           "elfinder-mode": 'single_selection',
-                           "elfinder-target": "##{component_id}",
-                           "elfinder-thumb-target": "##{component_id_image}",
-                           "elfinder-volumes": 'AlchemyImages'
+                             "elfinder-mode": 'single_selection',
+                             "elfinder-target": "##{component_id}",
+                             "elfinder-thumb-target": "##{component_id_image}",
+                             "elfinder-volumes": 'AlchemyImages'
                          }) do
             fa_icon("file-image")
           end
@@ -72,9 +72,9 @@ module Alchemy::Custom::Model::Admin::BaseHelper
           bf2 << link_to("#", class: 'clear_selection',
                          title: t("elfinder.clear_image_button"),
                          data: {
-                           "clearfield-target": "##{component_id}",
-                           "clearfield-thumb-target": "##{component_id_image}",
-                           "clearfield-thumb-target-replace": no_image_path
+                             "clearfield-target": "##{component_id}",
+                             "clearfield-thumb-target": "##{component_id_image}",
+                             "clearfield-thumb-target-replace": no_image_path
                          }) do
             fa_icon("times")
           end
@@ -142,10 +142,10 @@ module Alchemy::Custom::Model::Admin::BaseHelper
           bf2 << link_to("#", class: 'open_el_finder',
                          title: t("elfinder.edit_attachment_button"),
                          data: {
-                           "elfinder-mode": 'single_selection',
-                           "elfinder-target": "##{component_id}",
-                           "elfinder-mime_icon_updater": "##{id_icone}",
-                           "elfinder-volumes": 'AlchemyFiles'
+                             "elfinder-mode": 'single_selection',
+                             "elfinder-target": "##{component_id}",
+                             "elfinder-mime_icon_updater": "##{id_icone}",
+                             "elfinder-volumes": 'AlchemyFiles'
                          }) do
             fa_icon("file")
           end
@@ -153,8 +153,8 @@ module Alchemy::Custom::Model::Admin::BaseHelper
           bf2 << link_to("#", class: 'clear_selection',
                          title: t("elfinder.clear_attachment_button"),
                          data: {
-                           "clearfield-target": "##{component_id}",
-                           "clearfield-icon": "##{id_icone}"
+                             "clearfield-target": "##{component_id}",
+                             "clearfield-icon": "##{id_icone}"
                          }) do
             fa_icon("times")
           end
@@ -178,7 +178,6 @@ module Alchemy::Custom::Model::Admin::BaseHelper
   def render_obj(obj, field)
     obj.send field
   end
-
 
 
   ##
@@ -224,19 +223,19 @@ module Alchemy::Custom::Model::Admin::BaseHelper
 
           bf << content_tag(:div, class: 'gallery_item_blk') do
             link_to("#", class: 'open_el_finder', data: {
-              "elfinder-mode": 'multiple_selection',
-              "elfinder-target_upgrader": partial_url,
-              "elfinder-target": partial_identifier,
-              "elfinder-volumes": 'AlchemyImages,GalleryVolume',
-              "elfinder-volumes_cfgs": Base64.strict_encode64({
-                                                                "GalleryVolume": {
-                                                                  volume: 'ComponentAttribute',
-                                                                  attribute: field,
-                                                                  object: form.object.to_signed_global_id.to_s,
-                                                                  file_link_ref: 'picture',
-                                                                  tags: tags
-                                                                }
-                                                              }.to_json)
+                "elfinder-mode": 'multiple_selection',
+                "elfinder-target_upgrader": partial_url,
+                "elfinder-target": partial_identifier,
+                "elfinder-volumes": 'AlchemyImages,GalleryVolume',
+                "elfinder-volumes_cfgs": Base64.strict_encode64({
+                                                                    "GalleryVolume": {
+                                                                        volume: 'ComponentAttribute',
+                                                                        attribute: field,
+                                                                        object: form.object.to_signed_global_id.to_s,
+                                                                        file_link_ref: 'picture',
+                                                                        tags: tags
+                                                                    }
+                                                                }.to_json)
             }) do
               fa_icon("images")
             end
@@ -366,12 +365,58 @@ module Alchemy::Custom::Model::Admin::BaseHelper
   end
 
 
-  def check_presence_polymorphic_path(record_or_hash_or_array, options = {})
+  def check_presence_polymorphic_path(record_or_hash_or_array, method = :get, options = {})
     begin
-      polymorphic_path record_or_hash_or_array, options
-      true
-    rescue NoMethodError
+      url = polymorphic_path record_or_hash_or_array, options
+      route_hash = Rails.application.routes.recognize_path(url, :method => method)
+      if route_hash[:controller] != "alchemy/pages"
+        true
+      else
+        false
+      end
+    rescue NoMethodError, ActionController::RoutingError
       false
+    end
+  end
+
+
+  def order_path(obj = nil, options = {})
+    if obj.nil?
+      new_polymorphic_path([:admin, base_class.to_s.pluralize.underscore, :order])
+    else
+      new_polymorphic_path([:admin, obj, :order])
+    end
+  end
+
+  def exist_order_path?(obj = nil)
+    if obj.nil?
+      order_path
+    else
+      order_path obj
+    end
+    true
+  rescue NoMethodError
+    false
+  end
+
+  def print_order_tree(sort: false)
+    sortable_class = "sortable_tree" if sort
+    content_tag(:ol, class: "order_tree margined #{sortable_class}", id: "sort_tree") do
+      el_buf = ActiveSupport::SafeBuffer.new
+      @elements.each do |el|
+        el_buf << content_tag(:li, id: print_order_identify(el)) do
+          sb = ActiveSupport::SafeBuffer.new
+          sb << content_tag(:div, class: "el_block") do
+            div = ActiveSupport::SafeBuffer.new
+            div << print_sort_icon(el)
+            div << content_tag(:div, class: "el_value") do
+              printelement_to_order el
+            end
+          end
+          sb
+        end
+      end
+      el_buf
     end
   end
 

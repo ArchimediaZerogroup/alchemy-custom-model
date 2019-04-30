@@ -20,4 +20,5 @@
 //= require "./select2filter"
 //= require "./el_finder"
 //= require "./total_page_elfinder"
+//= require "./sortable"
 //= require "./common_init"
