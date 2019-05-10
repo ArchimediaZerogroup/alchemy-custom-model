@@ -19,7 +19,7 @@ module Alchemy::Custom::Model::Admin::OrdersHelper
     "el_#{el.id}"
   end
 
-  def printelement_to_orderr(el)
+  def printelement_to_order(el)
     content_tag(:span, class: "el_title name") do
       el.name
     end

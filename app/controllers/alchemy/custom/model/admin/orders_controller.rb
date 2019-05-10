@@ -1,6 +1,6 @@
 module Alchemy::Custom::Model
   module Admin
-    class OrdersController < Alchemy::Custom::Model::Admin::BaseController
+    class OrdersController < ::Alchemy::Custom::Model::Admin::BaseController
 
 
       skip_before_action :load_object

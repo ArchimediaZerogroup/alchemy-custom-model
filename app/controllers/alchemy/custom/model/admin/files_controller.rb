@@ -1,6 +1,6 @@
 module Alchemy::Custom::Model
   module Admin
-    class FilesController < Alchemy::Custom::Model.admin_controller_class
+    class FilesController < ::Alchemy::Custom::Model.admin_controller_class
 
       skip_before_action :verify_authenticity_token, :only => ['elfinder']
 

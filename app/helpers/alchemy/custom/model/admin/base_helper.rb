@@ -399,6 +399,12 @@ module Alchemy::Custom::Model::Admin::BaseHelper
     false
   end
 
+  def printelement_to_order(el)
+    content_tag(:span, class: "el_title name") do
+      el.name
+    end
+  end
+
   def print_order_tree(sort: false)
     sortable_class = "sortable_tree" if sort
     content_tag(:ol, class: "order_tree margined #{sortable_class}", id: "sort_tree") do
