@@ -1,7 +1,7 @@
 module Alchemy
   module Custom
     module Model
-      class Cloner < ActiveType::Object
+      class Cloner < ::ActiveType::Object
 
         attribute :language_id, :integer
         attribute :site_id, :integer

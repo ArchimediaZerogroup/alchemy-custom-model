@@ -2,6 +2,7 @@ require "alchemy_cms"
 require "jquery/ui/rails"
 require "el_finder"
 require "friendly_id"
+require "active_type"
 require "alchemy/custom/model/engine"
 
 

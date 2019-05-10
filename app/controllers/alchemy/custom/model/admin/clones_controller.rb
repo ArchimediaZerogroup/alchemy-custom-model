@@ -2,7 +2,7 @@ module Alchemy
   module Custom
     module Model
       module Admin
-        class ClonesController < BaseController
+        class ClonesController < ::Alchemy::Custom::Model::Admin::BaseController
           def create
             @obj.assign_attributes clean_params
             if @parent.present? and @obj.respond_to?("#{parent_model_name_demodulized}=".to_sym)
