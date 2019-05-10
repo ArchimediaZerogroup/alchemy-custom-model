@@ -18,7 +18,7 @@ GIT
 PATH
   remote: .
   specs:
-    alchemy-custom-model (0.1.7)
+    alchemy-custom-model (0.1.8)
       active_type (~> 0.7)
       alchemy_cms (~> 4.0)
       el_finder (~> 1.1, >= 1.1.13)
@@ -291,4 +291,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.16.3
+   1.17.3
