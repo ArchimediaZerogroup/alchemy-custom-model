@@ -3,6 +3,14 @@
 module Alchemy::Custom::Model
   module BaseHelper
 
+
+    def BaseHelper.included(mod)
+      if ::Rails.application.config.action_controller.include_all_helpers!=false
+        raise "Devi definire in config/application.rb config.action_controller.include_all_helpers=false
+                in modo da far funzionare correttamente l'override degli helper come per i controller"
+      end
+    end
+
     include TranslationScope
 
 

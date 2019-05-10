@@ -1,6 +1,13 @@
 module Alchemy::Custom::Model
   module CustomModelHelper
 
+    def CustomModelHelper.included(mod)
+      if ::Rails.application.config.action_controller.include_all_helpers!=false
+        raise "Devi definire in config/application.rb config.action_controller.include_all_helpers=false
+                in modo da far funzionare correttamente l'override degli helper come per i controller"
+      end
+    end
+
     def custom_model_page_urlname(obj)
       layout = Alchemy::PageLayout.get_all_by_attributes(custom_model: obj.class.to_s).select {|ly| ly["custom_model_action"] == "show"}.first
       if not layout.blank?
