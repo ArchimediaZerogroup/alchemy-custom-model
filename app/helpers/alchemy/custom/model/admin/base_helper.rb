@@ -1,5 +1,12 @@
 module Alchemy::Custom::Model::Admin::BaseHelper
 
+  def CustomModelHelper.included(mod)
+    if ::Rails.application.config.action_controller.include_all_helpers!=false
+      raise "Devi definire in config/application.rb config.action_controller.include_all_helpers=false
+                in modo da far funzionare correttamente l'override degli helper come per i controller"
+    end
+  end
+
 
   def base_form_container
     content_tag :div, class: "base_form_container #{controller_name}" do
