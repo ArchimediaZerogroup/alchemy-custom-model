@@ -19,8 +19,13 @@ module Alchemy::Custom::Model::Admin::OrdersHelper
     end
   end
 
-  def update_order_path(options = {})
+  def update_order_path(obj=nil,options = {})
+    if obj.nil?
     polymorphic_path([:admin, base_class.to_s.pluralize.underscore, :order], options)
+    else
+      polymorphic_path([:admin, obj, :order], options)
+
+    end
   end
 
   def print_order_identify(el)

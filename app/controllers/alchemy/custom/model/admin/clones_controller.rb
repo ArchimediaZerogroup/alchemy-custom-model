@@ -5,8 +5,8 @@ module Alchemy
         class ClonesController < ::Alchemy::Custom::Model::Admin::BaseController
           def create
             @obj.assign_attributes clean_params
-            if @parent.present? and @obj.respond_to?("#{parent_model_name_demodulized}=".to_sym)
-              @obj.send "#{parent_model_name_demodulized}=", @parent
+            if @parent.present?
+              @obj.send("#{@obj.class.to_cloner_name}=",@parent)
             end
             @obj = yield @obj if block_given?
             if @obj.apply

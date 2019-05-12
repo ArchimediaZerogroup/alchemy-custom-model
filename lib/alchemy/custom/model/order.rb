@@ -31,9 +31,14 @@ module Alchemy::Custom::Model
 
 
       def update
+        if !self.class.method_for_show.blank?
+          klass= klass_for_show_elements
+        else
+          klass= self.parent_klass
+        end
         updated_nodes = params[:ordered_data]
-        self.parent_klass.transaction do
-          process_nodes updated_nodes, self.parent_klass
+        klass.transaction do
+          process_nodes updated_nodes, klass
         end
         redirect_to polymorphic_path([:admin, self.parent_klass])
       end
@@ -42,6 +47,10 @@ module Alchemy::Custom::Model
 
       def parent_klass
         self.class.parent_klass
+      end
+
+      def klass_for_show_elements
+        self.class.method_for_show.to_s.singularize.classify.constantize
       end
 
       private
