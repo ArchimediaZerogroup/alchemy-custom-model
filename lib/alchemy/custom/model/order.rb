@@ -31,7 +31,7 @@ module Alchemy::Custom::Model
 
 
       def update
-        if !self.class.method_for_show.blank?
+        if !self.class.method_for_show.blank? and !@parent.nil?
           klass= klass_for_show_elements
         else
           klass= self.parent_klass
