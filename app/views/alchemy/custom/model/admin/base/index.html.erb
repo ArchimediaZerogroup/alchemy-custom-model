@@ -1,4 +1,3 @@
-
 <% content_for(:toolbar) do %>
   <%= render 'alchemy/admin/partials/site_select' %>
   <%= render 'language_tree_select' %>
@@ -29,6 +28,28 @@
         hotkey: 'alt+n',
         dialog: false,
         if_permitted_to: [:order, base_class]
+    }
+  end
+
+  if can?(:export_csv, base_class) and check_presence_polymorphic_path([:export_csv, :admin, base_class.to_s.demodulize.downcase.pluralize ], :get, format: :csv)
+    buttons << {
+        icon: "download",
+        label: t(:export_selected_data),
+        url: polymorphic_path([:export_csv, :admin, base_class.to_s.demodulize.downcase.pluralize],format: :csv),
+        title: t(:export_selected_data),
+        dialog: false,
+        if_permitted_to: [:export_csv, base_class]
+    }
+  end
+
+  if can?(:export_csv_full, base_class) and check_presence_polymorphic_path([:export_csv_full, :admin, base_class.to_s.demodulize.downcase.pluralize ], :get, format: :csv)
+    buttons << {
+        icon: "file-archive",
+        label: t(:export_all_data),
+        url: polymorphic_path([:export_csv_full, :admin, base_class.to_s.demodulize.downcase.pluralize],format: :csv),
+        title: t(:export_all_data),
+        dialog: false,
+        if_permitted_to: [:export_csv_full, base_class]
     }
   end
 

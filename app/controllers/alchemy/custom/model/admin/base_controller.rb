@@ -74,6 +74,26 @@ module Alchemy::Custom::Model
         end
       end
 
+      def export_csv
+
+        @query = base_class.ransack(params[:q])
+        @objects = @query.result(distinct: true)
+        @objects = @objects.accessible_by(current_ability)
+        @objects = @objects.page(params[:page]).
+            per(params[:per_page] ||
+                    (base_class::DEFAULT_PER_PAGE if base_class.const_defined? :DEFAULT_PER_PAGE) ||
+                    25)
+
+
+        send_data generate_csv, filename: "export_member.csv", disposition: :attachment, type: "text/csv"
+
+      end
+
+      def export_csv_full
+        @objects = base_class.all.accessible_by(current_ability)
+        send_data generate_csv, filename: "export_member.csv", disposition: :attachment, type: "text/csv"
+      end
+
 
       class << self
 
@@ -199,6 +219,28 @@ module Alchemy::Custom::Model
       def parent_model_name_demodulized
         self.class.parent_model_name.
           classify.demodulize.underscore
+      end
+
+
+      def generate_csv
+        header_csv = self.columns_csv.collect {|attr| base_class.human_attribute_name(attr)}
+
+        CSV.generate(headers: true) do |csv|
+          csv << header_csv
+          @objects.each do |member|
+            csv_row = self.columns_csv.collect do |attr|
+              member.send attr
+            end
+            csv << csv_row
+          end
+        end
+      end
+
+
+      protected
+
+      def columns_csv
+        table_columns
       end
 
 
