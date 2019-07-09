@@ -18,7 +18,7 @@ GIT
 PATH
   remote: .
   specs:
-    alchemy-custom-model (2.0.3)
+    alchemy-custom-model (2.1.0)
       active_type (~> 0.7)
       alchemy_cms (~> 4.0)
       el_finder (~> 1.1, >= 1.1.13)
