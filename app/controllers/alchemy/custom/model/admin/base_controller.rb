@@ -229,7 +229,7 @@ module Alchemy::Custom::Model
           csv << header_csv
           @objects.each do |member|
             csv_row = self.columns_csv.collect do |attr|
-              member.send attr
+              render_csv_field member, attr
             end
             csv << csv_row
           end
@@ -241,6 +241,10 @@ module Alchemy::Custom::Model
 
       def columns_csv
         table_columns
+      end
+
+      def render_csv_field obj, attr
+        obj.send attr
       end
 
 
