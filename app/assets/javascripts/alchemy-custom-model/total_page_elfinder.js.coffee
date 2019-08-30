@@ -1,5 +1,5 @@
 $ ->
-  if($('#elfinder').size()>0)
+  if($('#elfinder').length>0)
     datas = $('#elfinder').data()
 
     elf = new ElFinderConfigurator(
