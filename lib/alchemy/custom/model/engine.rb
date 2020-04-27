@@ -20,9 +20,15 @@ module Alchemy
 
           Alchemy::PagesController.include(PagesControllerDec)
 
+
+          if "Alchemy::Node".safe_constantize
+              Alchemy::Node.include Alchemy::NodeDec
+              Alchemy::Admin::NodesController.include Alchemy::Admin::NodesControllerDec
+          end
+
           # load degli helpers per alchemy
           [
-            Alchemy::Custom::Model::Engine.root.join('app', 'helpers', 'alchemy', 'pages_helper_decorator.rb')
+              Alchemy::Custom::Model::Engine.root.join('app', 'helpers', 'alchemy', 'pages_helper_decorator.rb')
           ].each do |f|
             Rails.configuration.cache_classes ? require(f) : load(f)
           end

@@ -5,6 +5,7 @@ module Alchemy::Custom::Model
     included do
 
       include GlobalIdSetter
+      include MenuMethods
 
       belongs_to :language, class_name: "Alchemy::Language"
 
