@@ -23,6 +23,7 @@ module Alchemy
       autoload :ElFinder
       autoload :GlobalIdSetter
       autoload :MenuMethods
+      autoload :SlugOptimizer
       autoload :ModelDecoration
       autoload :TranslationScope
       autoload :PagesControllerDec

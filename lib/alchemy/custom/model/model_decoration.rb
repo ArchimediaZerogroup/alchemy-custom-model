@@ -6,6 +6,7 @@ module Alchemy::Custom::Model
 
       include GlobalIdSetter
       include MenuMethods
+      include SlugOptimizer
 
       belongs_to :language, class_name: "Alchemy::Language"
 
