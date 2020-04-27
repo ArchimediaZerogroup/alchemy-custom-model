@@ -19,3 +19,5 @@ it:
       minimize_all: Minimizza
       maxzimize_all: Massimizza
 
+    image_used_in_this_models: Immagine usata nei seguenti modelli
+

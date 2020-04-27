@@ -1,0 +1,27 @@
+<div class="picture-usage-info resource_info">
+  <h3>
+    <%= I18n.t(:image_used_in_this_models, scope: :alchemy_custom_model) %>
+  </h3>
+  <div id="pictures_page_list">
+    <% used_in = Alchemy::Custom::Model::PictureUsedBy.used_by(@picture.id)%>
+    <% if used_in.any? %>
+      <ul>
+        <% used_in.each do |m| %>
+          <li>
+            <% begin %>
+              <h3>
+                <%= render_icon 'file-alt' %>              
+                <p><%= link_to "#{m.model_name.human}, #{m.try(:slug).to_s}", main_app.edit_polymorphic_path([:admin, m]) %></p>
+              </h3>
+            <% rescue %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <%= render_message do %>
+        <%= Alchemy.t(:picture_not_in_use_yet) %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

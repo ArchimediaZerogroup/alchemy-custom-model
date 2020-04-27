@@ -27,6 +27,7 @@ module Alchemy
       autoload :ModelDecoration
       autoload :TranslationScope
       autoload :PagesControllerDec
+      autoload :PictureUsedBy
 
 
 
