@@ -30,9 +30,12 @@ namespace :alchemy_custom_model do
 
     #installa friendly_id
     system("rails generate friendly_id")
+    system("bin/rails alchemy_custom_model:install:migrations")
     system("bin/rails db:migrate")
 
     system("yarn add alchemy-custom-model") || exit!(1)
+
+
 
     install_helper.inject_assets
     install_helper.inject_routes
