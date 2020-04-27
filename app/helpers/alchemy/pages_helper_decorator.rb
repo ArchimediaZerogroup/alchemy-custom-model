@@ -90,6 +90,25 @@ Alchemy::PagesHelper.module_eval do
     r.join().html_safe
   end
 
+  def render_menu_with_language(name, options = {})
+    root_node = Alchemy::Node.where(language_id: Alchemy::Language.current.id).roots.find_by(name: name)
+    if root_node.nil?
+      warning("Menu with name #{name} not found!")
+      return
+    end
+
+    options = {
+        node_partial_name: "#{root_node.view_folder_name}/node"
+    }.merge(options)
+
+    render(root_node, menu: root_node, node: root_node, options: options)
+  rescue ActionView::MissingTemplate => e
+    warning <<-WARN
+          Menu partial not found for #{name}.
+          #{e}
+    WARN
+  end
+
 
 end
 
