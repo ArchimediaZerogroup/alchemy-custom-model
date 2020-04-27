@@ -1,8 +1,8 @@
 <fieldset>
   <legend><%= t(:seo_fields)%></legend>
-  <%= f.input :meta_title %>
-  <%= f.input :meta_description %>
-  <%= f.input :meta_keywords %>
-  <%= f.input :robot_follow %>
-  <%= f.input :robot_index %>
+  <%= f.input :meta_title, as: :string %>
+  <%= f.input :meta_description, as: :text%>
+  <%= f.input :meta_keywords, as: :text %>
+  <%= f.input :robot_follow, as: :boolean %>
+  <%= f.input :robot_index, as: :boolean %>
 </fieldset>
