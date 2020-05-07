@@ -90,6 +90,25 @@ Alchemy::PagesHelper.module_eval do
     r.join().html_safe
   end
 
+
+  def check_if_active node_or_cm_inst
+    if !node_or_cm_inst.is_a? Alchemy::Node
+      if node_or_cm_inst.respond_to? :for_menu_matching and node_or_cm_inst.for_menu_matching.include? @custom_element
+        return true
+      end
+    else
+      if node_or_cm_inst.custom_model?
+        if @custom_element.respond_to? :for_menu_matching and
+            @custom_element.for_menu_matching.include? node_or_cm_inst.klass_custom_model
+          return true
+        end
+      elsif node_or_cm_inst.page and node_or_cm_inst.page.self_and_descendants.include? @page
+        return true
+      end
+    end
+    false
+  end
+
   def render_menu_with_language(name, options = {})
     root_node = Alchemy::Node.where(language_id: Alchemy::Language.current.id).roots.find_by(name: name)
     if root_node.nil?
