@@ -2,6 +2,8 @@ require "alchemy_cms"
 require "jquery/ui/rails"
 require "el_finder"
 require "friendly_id"
+require "globalize"
+require 'friendly_id/globalize'
 require "active_type"
 require "alchemy/custom/model/engine"
 
@@ -28,6 +30,8 @@ module Alchemy
       autoload :TranslationScope
       autoload :PagesControllerDec
       autoload :PictureUsedBy
+      autoload :ModelUtilsMethod
+      autoload :GlobalizeModelDecoration
 
 
 

@@ -26,6 +26,8 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails", "~> 6.0"
   s.add_dependency 'el_finder', '~> 1.1', '>= 1.1.13'
   s.add_dependency 'friendly_id', '~> 5.2', '>= 5.2.4'
+  s.add_dependency 'globalize', '~> 5.3'
+  s.add_dependency 'friendly_id-globalize', "1.0.0.alpha3"
   s.add_dependency 'active_type', "~> 0.7"
 
   # s.add_dependency 'friendly_id-globalize', '~> 1.0.0.alpha3'
