@@ -23,6 +23,7 @@
 //= require "./sortable"
 //= require "./common_init"
 //= require "./alchemy_custom_model_select"
+//= require "flatpickr/i10n/it"
 //= require "../backend/date_picker"
 //= require "../backend/fix_more_image_in_element"
 //= require "../backend/override_alchemy_selectbox"
