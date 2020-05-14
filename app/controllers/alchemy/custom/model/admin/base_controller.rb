@@ -20,6 +20,7 @@ module Alchemy::Custom::Model
         @query = base_class.ransack(params[:q])
         @objects = @query.result(distinct: true)
         @objects = @objects.accessible_by(current_ability).only_current_language
+        @total_objects = @objects
         @objects = @objects.page(params[:page]).
           per(params[:per_page] ||
                 (base_class::DEFAULT_PER_PAGE if base_class.const_defined? :DEFAULT_PER_PAGE) ||
@@ -64,6 +65,7 @@ module Alchemy::Custom::Model
         if @obj.respond_to? self.class.method_for_show
           @objects = @obj.send(self.class.method_for_show.to_sym)
           @objects = @objects.accessible_by(current_ability)
+          @total_objects = @objects
           @objects = @objects.page(params[:page]).
               per(params[:per_page] ||
                       (base_class::DEFAULT_PER_PAGE if base_class.const_defined? :DEFAULT_PER_PAGE) ||
@@ -79,6 +81,7 @@ module Alchemy::Custom::Model
         @query = base_class.ransack(params[:q])
         @objects = @query.result(distinct: true)
         @objects = @objects.accessible_by(current_ability)
+        @total_objects = @objects
         @objects = @objects.page(params[:page]).
             per(params[:per_page] ||
                     (base_class::DEFAULT_PER_PAGE if base_class.const_defined? :DEFAULT_PER_PAGE) ||

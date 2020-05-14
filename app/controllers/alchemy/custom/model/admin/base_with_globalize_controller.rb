@@ -13,6 +13,7 @@ module Alchemy
             @query = base_class.ransack(params[:q])
             @objects = @query.result(distinct: true)
             @objects = @objects.accessible_by(current_ability)
+            @total_objects = @objects
             @objects = @objects.page(params[:page]).
                 per(params[:per_page] ||
                         (base_class::DEFAULT_PER_PAGE if base_class.const_defined? :DEFAULT_PER_PAGE) ||
