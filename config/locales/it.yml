@@ -21,3 +21,7 @@ it:
 
     image_used_in_this_models: Immagine usata nei seguenti modelli
 
+  alchemy:
+    custom_models: Custom Models
+    pages_select: Pagine
+
