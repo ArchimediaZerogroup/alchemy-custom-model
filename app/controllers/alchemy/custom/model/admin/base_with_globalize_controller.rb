@@ -2,7 +2,7 @@ module Alchemy
   module Custom
     module Model
       module Admin
-        class BaseWithGlobalizeController < BaseController
+        class BaseWithGlobalizeController < ::Alchemy::Custom::Model::Admin::BaseController
 
 
           around_action :switch_globalize_locale
