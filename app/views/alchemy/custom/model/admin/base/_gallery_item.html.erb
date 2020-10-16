@@ -1,4 +1,9 @@
-<div class="gallery_item_blk">
-  <%= image_tag(picture.image_file.thumb("100x100#").url) %>
+<div class="gallery_item_blk" data-id="<%= jr_id %>">
+  <%= image_tag(picture.image_file.thumb("140x140#").url) %>
   <%= yield if block_given? %>
+  <div class="command_area">
+    <div class="destroy">
+      <i class="fas fa-times fa-lg fa-fw"></i>
+    </div>
+  </div>
 </div>

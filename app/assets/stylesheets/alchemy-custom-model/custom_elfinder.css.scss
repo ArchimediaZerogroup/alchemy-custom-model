@@ -13,9 +13,26 @@
       display: block;
       float: left;
       margin: 6px;
-      width: 100px;
-      height: 100px;
+      width: 140px;
+      height: 140px;
       overflow: hidden;
+      position: relative;
+
+      .command_area {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: 0;
+        width: 100%;
+        padding: 4px 2px;
+        background-color: #f0f0f0;
+        .destroy {
+          float: right;
+          color: rgba(51, 59, 81, 0.8);
+          cursor: pointer
+        }
+      }
+
 
       .open_el_finder {
         width: 98%;
@@ -28,6 +45,7 @@
         i.fa-images {
           font-size: 50px;
           margin-top: 20px;
+          line-height: 90px;
         }
       }
     }

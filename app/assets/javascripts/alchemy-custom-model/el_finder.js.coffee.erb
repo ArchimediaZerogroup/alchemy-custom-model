@@ -196,8 +196,26 @@ class ElFinderDialog
     $.ajax
       url: @opts.target_upgrader
       success: (data)=>
+
+        imgs_gallery = $(@opts.target).find(".gallery_item_blk")
+        imgs_destroyed_ids = []
+        $.each imgs_gallery, (index,element) ->
+          destroyed_input = $(element).find(".gallery_item_destroy_input")[0]
+          if($(destroyed_input).val()== "true")
+            imgs_destroyed_ids.push($(element).data("id"))
+
         elemento_gallery = $(data).find(@opts.target)
         $(@opts.target).html($(elemento_gallery).html())
+        target = @opts.target
+        gal_el = null
+        $.each imgs_destroyed_ids, (index,id) ->
+          el_to_hide = $(target).find(".gallery_item_blk[data-id='#{id}']")
+          input_destroy = $(el_to_hide).find(".gallery_item_destroy_input")[0]
+          $(el_to_hide).hide()
+          $(input_destroy).val(true)
+
+#        #elemento_gallery = $(data).find(@opts.target)
+#        $(@opts.target).html($(gal_el).html())
 
 
   open: ->
@@ -234,6 +252,19 @@ $(document).on 'click', '.clear_selection', (e)->
     $(opts.clearfieldIcon).attr('class','')
 
 
+$(document).on 'click', '.elfinder_picture_gallery .gallery_item_blk .destroy', (e)->
+  img_container = $(this).parents(".gallery_item_blk")[0]
+  input_destroy = $(img_container).find(".gallery_item_destroy_input")[0]
+  $(input_destroy).val(true)
+  $(img_container).hide()
+
+$(document).on 'page:change turbolinks:load', ->
+  $(".elfinder_picture_gallery .gallery_item_blk").each (index,element) ->
+    input_destroy = $(element).find(".gallery_item_destroy_input")[0]
+    img_container = $(element)
+    if($(input_destroy).val() == "true")
+      $(img_container).hide()
+      $(input_destroy).val(true)
 
 
 

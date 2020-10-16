@@ -221,9 +221,12 @@ module Alchemy::Custom::Model::Admin::BaseHelper
           component_id = SecureRandom.hex(10)
 
           bf << form.fields_for(field) do |join_record_form|
-            render(layout: 'gallery_item', locals: {picture: join_record_form.object.picture}) do
+            render(layout: 'gallery_item', locals: {picture: join_record_form.object.picture, jr_id: join_record_form.object.id}) do
+              sb = ActiveSupport::SafeBuffer.new
 
-              join_record_form.hidden_field :position, class: 'gallery_position_counter'
+              sb << join_record_form.hidden_field(:position, class: 'gallery_position_counter')
+              sb << join_record_form.hidden_field(:_destroy, class: 'gallery_item_destroy_input')
+              sb
 
             end
           end
