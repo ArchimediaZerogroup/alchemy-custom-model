@@ -58,7 +58,7 @@ module Alchemy::Custom::Model
 
         if obj.class.respond_to?(:friendly_id_config)
           language = Alchemy::Language.current if language.blank?
-          I18n.with_locale(language.language_code.to_sym) do
+          Globalize.with_locale(language.language_code.to_sym) do
             url += "#{obj.send(obj.class.friendly_id_config.slug_column)}"
           end
         else
