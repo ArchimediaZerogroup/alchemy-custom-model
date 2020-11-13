@@ -2,6 +2,7 @@
 <url>
   <loc><%= show_alchemy_page_url(page) %></loc>
   <lastmod><%= page.updated_at.utc.iso8601 %></lastmod>
+  <changefreq><%= Alchemy::Custom::Model.sitemap_change_freq %></changefreq>
 </url>
 <%- end -%>
 <% Alchemy::Language.published.each do |language| %>
@@ -9,6 +10,7 @@
 <url>
   <loc><%= custom_model_url(ce, language: language) %></loc>
   <lastmod><%= ce.updated_at.utc.iso8601 %></lastmod>
+  <changefreq><%= Alchemy::Custom::Model.sitemap_change_freq %></changefreq>
 </url>
 <% end %>
 <% end%>
