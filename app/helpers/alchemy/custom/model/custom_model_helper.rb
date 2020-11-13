@@ -2,37 +2,45 @@ module Alchemy::Custom::Model
   module CustomModelHelper
 
     def self.included(mod)
-      if ::Rails.application.config.action_controller.include_all_helpers!=false
+      if ::Rails.application.config.action_controller.include_all_helpers != false
         raise "Devi definire in config/application.rb config.action_controller.include_all_helpers=false
                 in modo da far funzionare correttamente l'override degli helper come per i controller"
       end
     end
 
-    def custom_model_page_urlname(obj)
-      layout = Alchemy::PageLayout.get_all_by_attributes(custom_model: obj.class.to_s).select {|ly| ly["custom_model_action"] == "show"}.first
+    def custom_model_page_urlname(obj, language: nil)
+      if language.blank?
+        language = Alchemy::Language.current
+      end
+      layout = Alchemy::PageLayout.get_all_by_attributes(custom_model: obj.class.to_s).select { |ly| ly["custom_model_action"] == "show" }.first
       if not layout.blank?
-        Alchemy::Language.current.pages.find_by(page_layout: layout["name"]).try(:parent).try(:urlname)
+        language.pages.find_by(page_layout: layout["name"]).try(:parent).try(:urlname)
       else
         nil
       end
     end
 
-    def custom_model_path(obj)
-      custom_model_url_builder(obj) do |url|
-        alchemy.show_page_path(Alchemy::Language.current.code, url)
+    def custom_model_path(obj, options = {})
+      language = options.delete(:language)
+      custom_model_url_builder(obj, language: language) do |url|
+        alchemy.show_page_path(language || Alchemy::Language.current.code, url, options)
       end
     end
 
-    def custom_model_url(obj)
-      custom_model_url_builder(obj) do |url|
-        alchemy.show_page_url(Alchemy::Language.current.code, url)
+    def custom_model_url(obj, options = {})
+      language = options.delete(:language)
+      if language.is_a? String
+        language = Alchemy::Language.find_by_code(language)
+      end
+      custom_model_url_builder(obj, language: language) do |url|
+        alchemy.show_page_url(language.code || Alchemy::Language.current.code, url, options)
       end
     end
 
     private
 
-    def custom_model_url_builder(obj)
-      to_url = custom_model_page_urlname obj
+    def custom_model_url_builder(obj, language: nil)
+      to_url = custom_model_page_urlname obj, language: language
       if not to_url.blank?
 
         # Url build with alchemy
@@ -49,10 +57,14 @@ module Alchemy::Custom::Model
         url += '/'
 
         if obj.class.respond_to?(:friendly_id_config)
-          url += "#{obj.send(obj.class.friendly_id_config.slug_column)}"
+          language = Alchemy::Language.current if language.blank?
+          I18n.with_locale(language.language_code.to_sym) do
+            url += "#{obj.send(obj.class.friendly_id_config.slug_column)}"
+          end
         else
           url += "#{obj.id}"
         end
+
 
         if block_given?
           yield url
