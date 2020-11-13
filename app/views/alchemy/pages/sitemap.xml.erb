@@ -1,0 +1,12 @@
+<%- @pages.each do |page| -%>
+<url>
+  <loc><%= show_alchemy_page_url(page) %></loc>
+  <lastmod><%= page.updated_at.utc.iso8601 %></lastmod>
+</url>
+<%- end -%>
+<% @custom_elements.each do |ce| %>
+<url>
+  <loc><%= custom_model_url(ce) %></loc>
+  <lastmod><%= ce.updated_at.utc.iso8601 %></lastmod>
+</url>
+<% end %>

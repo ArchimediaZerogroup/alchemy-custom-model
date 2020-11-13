@@ -7,6 +7,7 @@ module Alchemy::Custom::Model
       include GlobalIdSetter
       include MenuMethods
       include ModelUtilsMethods
+      include SitemapMethods
 
 
 

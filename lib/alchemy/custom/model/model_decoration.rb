@@ -7,6 +7,7 @@ module Alchemy::Custom::Model
       include GlobalIdSetter
       include MenuMethods
       include SlugOptimizer
+      include SitemapMethods
 
       belongs_to :language, class_name: "Alchemy::Language"
 

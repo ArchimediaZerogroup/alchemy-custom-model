@@ -31,8 +31,12 @@ module Alchemy
       autoload :PagesControllerDec
       autoload :PictureUsedBy
       autoload :ModelUtilsMethod
+      autoload :SitemapMethods
       autoload :GlobalizeModelDecoration
 
+
+      mattr_accessor :sitemaps_models
+      @@sitemaps_models = []
 
 
       mattr_accessor :base_admin_controller_class

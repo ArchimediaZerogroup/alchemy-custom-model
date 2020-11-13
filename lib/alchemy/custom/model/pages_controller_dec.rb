@@ -7,11 +7,27 @@ module Alchemy::Custom::Model
 
       skip_before_action :page_not_found!, only: [:index, :show]
       before_action :load_custom_model_page, only: [:show]
-      before_action :page_not_found_after_custom_model!, if: -> {@page.blank?}, only: [:index, :show]
+      before_action :page_not_found_after_custom_model!, if: -> { @page.blank? }, only: [:index, :show]
       before_action :perform_search, only: :show
-      after_action :set_404_after
+      after_action :set_404_after, except: :sitemap
 
       helper CustomModelHelper
+
+      def sitemap
+        @pages = Alchemy::Page.sitemap.reject do |page|
+          page.definition["custom_model_action"].to_s == "show"
+        end
+        @custom_elements = []
+        Alchemy::Custom::Model.sitemaps_models.each do |model|
+          if model.respond_to? :to_sitemap
+            @custom_elements << model.to_sitemap
+          end
+        end
+        @custom_elements = @custom_elements.flatten
+        respond_to do |format|
+          format.xml { render layout: 'alchemy/sitemap' }
+        end
+      end
 
       private
 
@@ -25,11 +41,13 @@ module Alchemy::Custom::Model
 
             @q = custom_model.ransack(params[:q])
             @custom_elements = @q.result.
-              page(params[:page]).per(params[:per_page])
+                page(params[:page]).per(params[:per_page])
             @custom_elements = @custom_elements.only_current_language
             instance_variable_set("@#{custom_model_string.demodulize.downcase.pluralize}", @custom_elements)
           end
 
+        elsif action_name == "sitemap"
+          super
         else
 
           url = params[:urlname]
@@ -40,8 +58,8 @@ module Alchemy::Custom::Model
 
 
             parent_page = Alchemy::Language.current.pages.contentpages.find_by(
-              urlname: url_params[:page_name],
-              language_code: params[:locale] || Alchemy::Language.current.code
+                urlname: url_params[:page_name],
+                language_code: params[:locale] || Alchemy::Language.current.code
             )
 
             if parent_page.nil?
