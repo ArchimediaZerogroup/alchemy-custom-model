@@ -4,9 +4,11 @@
   <lastmod><%= page.updated_at.utc.iso8601 %></lastmod>
 </url>
 <%- end -%>
+<% Alchemy::Language.published.each do |language| %>
 <% @custom_elements.each do |ce| %>
 <url>
-  <loc><%= custom_model_url(ce) %></loc>
+  <loc><%= custom_model_url(ce, language: language) %></loc>
   <lastmod><%= ce.updated_at.utc.iso8601 %></lastmod>
 </url>
 <% end %>
+<% end%>

@@ -35,6 +35,9 @@ module Alchemy
       autoload :GlobalizeModelDecoration
 
 
+      mattr_accessor :sitemap_change_freq
+      @@sitemap_change_freq = "weekly"
+
       mattr_accessor :sitemaps_models
       @@sitemaps_models = []
 
