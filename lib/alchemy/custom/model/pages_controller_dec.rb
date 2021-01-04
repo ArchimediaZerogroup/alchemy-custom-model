@@ -63,29 +63,26 @@ module Alchemy::Custom::Model
             )
 
             if parent_page.nil?
-              raise ActionController::RoutingError, "Parent Page not Found [#{url_params[:page_name]}]"
-            end
+              Rails.logger.warning "Parent Page not Found [#{url_params[:page_name]}]"
+              #TODO magari implementare ricerca children in base a una action es. edit new chow ecc
+              @page = parent_page.children.first
+              if @page.nil?
+                Rails.logger.warning "You have to define a subpage for custom model"
+                custom_model_string = get_custom_model_string
 
-            #TODO magari implementare ricerca children in base a una action es. edit new chow ecc
+                if custom_model_string.blank?
+                  Rails.logger.warning "You have to specify custom_model in page_layouts config file"
+                else
+                  custom_model = custom_model_string.classify.constantize
+                  @custom_element = custom_model.only_current_language.friendly.find(url_params[:custom_model_id])
+                  instance_variable_set("@#{custom_model_string.demodulize.underscore}", @custom_element)
+                end
 
-            @page = parent_page.children.first
+              end
 
-            if @page.nil?
-              raise ActionController::RoutingError, "You have to define a subpage for custom model"
-            end
-
-            custom_model_string = get_custom_model_string
-
-            if custom_model_string.blank?
-              raise ActionController::RoutingError, "You have to specify custom_model in page_layouts config file"
-            else
-              custom_model = custom_model_string.classify.constantize
-              @custom_element = custom_model.only_current_language.friendly.find(url_params[:custom_model_id])
-              instance_variable_set("@#{custom_model_string.demodulize.underscore}", @custom_element)
             end
 
           end
-
 
         end
       end
