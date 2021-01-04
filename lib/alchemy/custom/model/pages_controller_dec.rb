@@ -41,7 +41,7 @@ module Alchemy::Custom::Model
 
             @q = custom_model.ransack(params[:q])
             @custom_elements = @q.result.
-                page(params[:page]).per(params[:per_page])
+              page(params[:page]).per(params[:per_page])
             @custom_elements = @custom_elements.only_current_language
             instance_variable_set("@#{custom_model_string.demodulize.downcase.pluralize}", @custom_elements)
           end
@@ -56,30 +56,27 @@ module Alchemy::Custom::Model
 
           unless url_params.nil?
 
-
             parent_page = Alchemy::Language.current.pages.contentpages.find_by(
-                urlname: url_params[:page_name],
-                language_code: params[:locale] || Alchemy::Language.current.code
+              urlname: url_params[:page_name],
+              language_code: params[:locale] || Alchemy::Language.current.code
             )
 
             if parent_page.nil?
               Rails.logger.warning "Parent Page not Found [#{url_params[:page_name]}]"
-              #TODO magari implementare ricerca children in base a una action es. edit new chow ecc
-              @page = parent_page.children.first
-              if @page.nil?
-                Rails.logger.warning "You have to define a subpage for custom model"
-                custom_model_string = get_custom_model_string
+            end
+            #TODO magari implementare ricerca children in base a una action es. edit new chow ecc
+            @page = parent_page.children.first
+            if @page.nil?
+              Rails.logger.warning "You have to define a subpage for custom model"
+            end
+            custom_model_string = get_custom_model_string
 
-                if custom_model_string.blank?
-                  Rails.logger.warning "You have to specify custom_model in page_layouts config file"
-                else
-                  custom_model = custom_model_string.classify.constantize
-                  @custom_element = custom_model.only_current_language.friendly.find(url_params[:custom_model_id])
-                  instance_variable_set("@#{custom_model_string.demodulize.underscore}", @custom_element)
-                end
-
-              end
-
+            if custom_model_string.blank?
+              Rails.logger.warning "You have to specify custom_model in page_layouts config file"
+            else
+              custom_model = custom_model_string.classify.constantize
+              @custom_element = custom_model.only_current_language.friendly.find(url_params[:custom_model_id])
+              instance_variable_set("@#{custom_model_string.demodulize.underscore}", @custom_element)
             end
 
           end
@@ -110,7 +107,6 @@ module Alchemy::Custom::Model
         end
       end
 
-
       def get_custom_model_string
 
         children_page_layout = Alchemy::PageLayout.get(@page.page_layout)
@@ -119,7 +115,6 @@ module Alchemy::Custom::Model
 
       end
 
-
       def page_not_found_after_custom_model!
         not_found_error!("Alchemy::Page not found \"#{request.fullpath}\"")
       end
@@ -127,7 +122,6 @@ module Alchemy::Custom::Model
       def paginate_per
         ArchimediaPgsearch::SEARCH_RESULTS_PAGINATION_NUMBER
       end
-
 
       def not_found_error!(msg = "Not found \"#{request.fullpath}\"")
         not_found_page = Alchemy::Language.current.pages.published.find_by(page_layout: "not_found")
