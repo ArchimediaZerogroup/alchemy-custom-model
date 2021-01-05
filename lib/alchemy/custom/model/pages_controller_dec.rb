@@ -62,17 +62,17 @@ module Alchemy::Custom::Model
             )
 
             if parent_page.nil?
-              Rails.logger.warning "Parent Page not Found [#{url_params[:page_name]}]"
+              Rails.logger.warn "Parent Page not Found [#{url_params[:page_name]}]"
             end
             #TODO magari implementare ricerca children in base a una action es. edit new chow ecc
             @page = parent_page.children.first
             if @page.nil?
-              Rails.logger.warning "You have to define a subpage for custom model"
+              Rails.logger.warn "You have to define a subpage for custom model"
             end
             custom_model_string = get_custom_model_string
 
             if custom_model_string.blank?
-              Rails.logger.warning "You have to specify custom_model in page_layouts config file"
+              Rails.logger.warn "You have to specify custom_model in page_layouts config file"
             else
               custom_model = custom_model_string.classify.constantize
               @custom_element = custom_model.only_current_language.friendly.find(url_params[:custom_model_id])
