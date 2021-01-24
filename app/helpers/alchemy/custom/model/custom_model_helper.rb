@@ -37,6 +37,56 @@ module Alchemy::Custom::Model
       end
     end
 
+
+
+    def search_panel(options = {}, &block)
+      submit_button = options.fetch(:enable_submit, true)
+      klass = options.delete(:class) || []
+      
+      content_tag(:div, class: "search_panel #{klass.join(" ")}", ** options) do
+        sb = ActiveSupport::SafeBuffer.new
+  
+        if @query
+          sb << content_tag(:div, class:"title") do
+            spt = ActiveSupport::SafeBuffer.new
+            spt << content_tag(:span, t("search_panel_title"), class:"title_label")
+            
+            #TODO: toggle pannello
+            #spt << content_tag(:span, class:"button_toggle") do
+            #  content_tag(:a,class:"icon_button") do
+            #    content_tag(:i, nil, class:"icon fa-fw fa-bars fas")
+            #  end
+            #end
+            spt
+          end
+  
+          sb << simple_form_for(@query, url: polymorphic_path([:admin, @query.klass]), method: :get) do |f|
+            sff = ActiveSupport::SafeBuffer.new
+  
+            field_search = @query.klass.fields_for_search.join("_or_")
+            field_search += "_cont"
+  
+            sff << content_tag(:div, class: "search_fields_group") do
+              search_fields = ActiveSupport::SafeBuffer.new
+  
+              search_fields << capture do
+                block.call(f)
+              end
+  
+              search_fields
+            end
+            if submit_button
+              sff << content_tag(:div, class: "action_buttons") do
+                f.submit(::I18n.t('alchemy_ajax_form.submit_search'))
+              end
+            end
+            sff
+          end
+        end
+        sb
+      end
+    end    
+
     private
 
     def custom_model_url_builder(obj, language: nil)

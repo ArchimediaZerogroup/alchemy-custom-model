@@ -67,6 +67,7 @@
 
     <%= content_tag :h1, "#{@total_objects.count} #{base_class.model_name.human(count: @objects.count)}", class: 'resources-header' %>
 
+    <%= render partial: "search_panel" %>
 
     <%= render partial: "table" %>
 
