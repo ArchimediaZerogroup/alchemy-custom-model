@@ -37,6 +37,7 @@ module Alchemy::Custom::Model
       end
     end
 
+
     private
 
     def custom_model_url_builder(obj, language: nil)

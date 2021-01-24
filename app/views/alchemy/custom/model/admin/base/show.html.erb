@@ -1,48 +1,5 @@
-<%
-  buttons = []
-
-  buttons << {
-      icon: "angle-double-left ",
-      label: acm_t(:title_action, action: acm_t(:index, scope: :actions), model: base_class.model_name.human),
-      url: polymorphic_path(url_namespace),
-      title: acm_t(:title_action, action: acm_t(:index, scope: :actions), model: base_class.model_name.human),
-      hotkey: 'alt+b',
-      dialog: false,
-      if_permitted_to: [:index, @obj.class]
-  }
-
-  if exist_order_path? @obj
-    buttons << {
-        icon: :random,
-        label: acm_t(:title_action, action: acm_t(:order, scope: :actions), model: base_class.model_name.human),
-        url: order_path(@obj),
-        title: acm_t(:title_action, action: acm_t(:order, scope: :actions), model: base_class.model_name.human),
-        hotkey: 'alt+n',
-        dialog: false,
-        if_permitted_to: [:order, base_class]
-    }
-  end
-
-%>
-
-
-<% toolbar(
-       buttons: buttons,
-       search: false
-   ) %>
-
-
-<%= base_container do %>
-
-  <div id="archive_all" class="resources-table-wrapper">
-
-    <%= content_tag :h1, "#{@objects.count} #{base_class.model_name.human(count: @objects.count)}", class: 'resources-header' %>
-
-
-    <%= render partial: "table" %>
-
-    <%= paginate @objects, theme: 'alchemy', hide_per_page_select: true %>
-
-  </div>
-
+<% if @objects.nil? %>
+  <%= render partial: "show_object" %>
+<% else %>
+  <%= render partial: "show_objects" %>
 <% end %>

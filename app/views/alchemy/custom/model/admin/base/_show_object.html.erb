@@ -1,0 +1,30 @@
+<%=toolbar(
+     buttons: [
+       {
+         icon: "angle-double-left ",
+         label: acm_t(:title_action, action: acm_t(:index, scope: :actions), model: base_class.model_name.human),
+         url: polymorphic_path(url_namespace),
+         title: acm_t(:title_action, action: acm_t(:index, scope: :actions), model: base_class.model_name.human),
+         hotkey: 'alt+b',
+         dialog: false,
+         if_permitted_to: [:index, @obj.class]
+       }
+
+     ],
+     search: false
+   ) %>
+
+
+<div class="show_page">
+  <% @obj.attributes.each do |attribute| %>
+    <div class="attribute_row">
+      <div class="labelfield">
+        <%= @obj.class.human_attribute_name(attribute.first.to_sym) %>
+      </div>
+      <div class="valuefield">
+        <%= attribute[1]  %>
+      </div>
+    </div>
+  <% end %>
+  
+</div>

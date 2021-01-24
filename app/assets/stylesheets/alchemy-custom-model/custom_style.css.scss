@@ -276,3 +276,98 @@
 
 }
 
+
+.alchemy-dialog {
+  max-width: 1080px !important;
+  width: 100% !important;
+
+  .attribute_row {
+    margin: 10px 0px;
+    display: flex;
+
+    .labelfield {
+      font-size: 15px;
+      font-weight: bold;
+      text-transform: uppercase;
+      display: inline-block;
+      width: 200px;
+      overflow: hidden;
+    }
+
+    .valuefield {
+      font-size: 15px;
+      display: inline-block;
+      width: calc(100% - 200px);
+      overflow: hidden;
+    }
+
+  }
+}
+
+
+.search_panel {
+  background-color: #e9cfb7;
+  color:#000;
+  padding: 5px;
+  .row {
+    width: 100%;
+    height: auto;
+    display: flex;
+  }
+  .title {
+    color:#204166;
+    background-color: #eca96e;
+    font-weight: bolder;
+    width: 100;
+    display: block;
+    text-align: center;
+    height: 30px;
+    .title_label {
+      float:left;
+      margin-top:5px;
+      padding-left: 5px;
+    }
+    .button_toggle {
+      float:right;
+      margin-top:5px;
+      padding-right: 5px;
+    }
+  }
+  .search_fields_group div.input {
+    width: 30%;
+    float: left;
+    padding: 0 15px;
+    margin: 2px 0; 
+  }
+  .action_buttons {
+    padding-top: 3px;
+  }
+}
+
+
+.show_page {
+  max-width: 1080px !important;
+  width: 100% !important;
+
+  .attribute_row {
+    margin: 10px 0px;
+    display: flex;
+
+    .labelfield {
+      font-size: 15px;
+      font-weight: bold;
+      text-transform: uppercase;
+      display: inline-block;
+      width: 200px;
+      overflow: hidden;
+    }
+
+    .valuefield {
+      font-size: 15px;
+      display: inline-block;
+      width: calc(100% - 200px);
+      overflow: hidden;
+    }
+
+  }
+}
