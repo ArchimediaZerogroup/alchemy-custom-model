@@ -1,5 +1,4 @@
-
-<% if @objects == base_class.none %>
+<% if @objects.nil? %>
   <%= render partial: "show_object" %>
 <% else %>
   <%= render partial: "show_objects" %>
