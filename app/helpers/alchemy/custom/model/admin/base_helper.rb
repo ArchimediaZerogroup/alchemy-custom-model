@@ -461,9 +461,6 @@ module Alchemy::Custom::Model::Admin::BaseHelper
         sb << simple_form_for(@query, url: polymorphic_path([:admin, @query.klass]), method: :get) do |f|
           sff = ActiveSupport::SafeBuffer.new
 
-          field_search = @query.klass.fields_for_search.join("_or_")
-          field_search += "_cont"
-
           sff << content_tag(:div, class: "search_fields_group") do
             search_fields = ActiveSupport::SafeBuffer.new
 
