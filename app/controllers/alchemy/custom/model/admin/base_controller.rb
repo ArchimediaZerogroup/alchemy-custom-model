@@ -62,17 +62,19 @@ module Alchemy::Custom::Model
       end
 
       def show
-        if @obj.respond_to? self.class.method_for_show
-          @objects = @obj.send(self.class.method_for_show.to_sym)
-          @objects = @objects.accessible_by(current_ability)
-          @total_objects = @objects
-          @objects = @objects.page(params[:page]).
-              per(params[:per_page] ||
-                      (base_class::DEFAULT_PER_PAGE if base_class.const_defined? :DEFAULT_PER_PAGE) ||
-                      25)
-          instance_variable_set "@#{self.class.method_for_show.to_s.underscore.downcase.pluralize}", @objects
-        else
-          @objects = base_class.none
+        unless self.class.method_for_show.nil?
+          if @obj.respond_to? self.class.method_for_show
+            @objects = @obj.send(self.class.method_for_show.to_sym)
+            @objects = @objects.accessible_by(current_ability)
+            @total_objects = @objects
+            @objects = @objects.page(params[:page]).
+                per(params[:per_page] ||
+                        (base_class::DEFAULT_PER_PAGE if base_class.const_defined? :DEFAULT_PER_PAGE) ||
+                        25)
+            instance_variable_set "@#{self.class.method_for_show.to_s.underscore.downcase.pluralize}", @objects
+          else
+            @objects = base_class.none
+          end
         end
       end
 
