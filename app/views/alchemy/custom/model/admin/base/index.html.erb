@@ -35,7 +35,7 @@
     buttons << {
         icon: "download",
         label: t(:export_selected_data),
-        url: polymorphic_path([:export_csv, :admin,  base_class.to_s.demodulize.pluralize.underscore],format: :csv),
+        url: polymorphic_path([:export_csv, :admin,  base_class.to_s.demodulize.pluralize.underscore], {format: :csv}.merge(request.query_parameters) ),
         title: t(:export_selected_data),
         dialog: false,
         if_permitted_to: [:export_csv, base_class]
