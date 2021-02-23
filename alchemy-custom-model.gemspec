@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
                 'vendor/elfinder/js/elfinder.min.js',
                 'vendor/assets/{javascripts,stylesheets}/**/*']
 
-  s.add_dependency 'alchemy_cms', '~> 4.0'
+  s.add_dependency 'alchemy_cms', '~> 5.1', '>= 5.1.2'
   s.add_dependency "jquery-ui-rails", "~> 6.0"
   s.add_dependency 'el_finder', '~> 1.1', '>= 1.1.13'
   s.add_dependency 'friendly_id', '~> 5.2', '>= 5.2.4'
