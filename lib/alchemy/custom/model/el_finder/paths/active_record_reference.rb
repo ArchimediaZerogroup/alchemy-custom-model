@@ -35,6 +35,15 @@ module Alchemy::Custom::Model::ElFinder
           "#{p.id}#{URI_SPACER}"
         end
 
+        ##
+        # Identifichiamo la data di modifica del file con la data di modifica del record, in questo modo la cache
+        # che viene generata attraverso l'inserimento di un parametro nella query con il valore t=orario non andrà ad essere
+        # aggiornato ad ogni refresh, anche solo a livello di browser
+        # nel caso abbiamo problemi usiamo lo standard
+        def mtime
+          active_record_instance.updated_at rescue super
+        end
+
         def file
           active_record_instance.file
         end
