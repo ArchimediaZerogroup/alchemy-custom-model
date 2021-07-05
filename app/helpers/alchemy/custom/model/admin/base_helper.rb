@@ -392,7 +392,7 @@ module Alchemy::Custom::Model::Admin::BaseHelper
 
   def order_path(obj = nil, options = {})
     if obj.nil?
-      new_polymorphic_path([:admin, base_class.to_s.pluralize.underscore, :order])
+      new_polymorphic_path([:admin, base_class.to_s.pluralize.underscore.to_sym, :order])
     else
       new_polymorphic_path([:admin, obj, :order])
     end
