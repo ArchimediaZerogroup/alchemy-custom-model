@@ -44,7 +44,8 @@ module Alchemy
               :nofollow,
               :external,
               :custom_model_klass,
-              :custom_model_method
+              :custom_model_method,
+              :menu_type
           )
         end
 
