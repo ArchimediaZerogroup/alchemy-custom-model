@@ -110,14 +110,14 @@ Alchemy::PagesHelper.module_eval do
   end
 
   def render_menu_with_language(name, options = {})
-    root_node = Alchemy::Node.where(language_id: Alchemy::Language.current.id).roots.find_by(name: name)
+    root_node = Alchemy::Node.where(language_id: Alchemy::Language.current.id).roots.find_by(menu_type: name)
     if root_node.nil?
       warning("Menu with name #{name} not found!")
       return
     end
 
     options = {
-        node_partial_name: "#{root_node.view_folder_name}/node"
+      node_partial_name: "#{root_node.to_partial_path}"
     }.merge(options)
 
     render(root_node, menu: root_node, node: root_node, options: options)
