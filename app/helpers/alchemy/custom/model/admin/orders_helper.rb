@@ -8,7 +8,7 @@ module Alchemy::Custom::Model::Admin::OrdersHelper
   end
 
   def order_path(options = {})
-    new_polymorphic_path([:admin, base_class.to_s.pluralize.underscore, :order], options)
+    new_polymorphic_path([:admin, base_class.to_s.pluralize.underscore.to_sym, :order], options)
   end
 
   def index_ordered_path(obj = nil, options = {})
@@ -21,7 +21,7 @@ module Alchemy::Custom::Model::Admin::OrdersHelper
 
   def update_order_path(obj=nil,options = {})
     if obj.nil?
-    polymorphic_path([:admin, base_class.to_s.pluralize.underscore, :order], options)
+      polymorphic_path([:admin, base_class.to_s.pluralize.underscore.to_sym, :order], options)
     else
       polymorphic_path([:admin, obj, :order], options)
 
