@@ -8,6 +8,7 @@ module Alchemy::Custom::Model
       include MenuMethods
       include SlugOptimizer
       include SitemapMethods
+      include PicturesAltMethods
 
       belongs_to :language, class_name: "Alchemy::Language"
 
