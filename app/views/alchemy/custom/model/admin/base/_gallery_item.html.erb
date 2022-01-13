@@ -1,9 +1,42 @@
-<div class="gallery_item_blk" data-id="<%= jr_id %>">
+
+<% obj = jr.metadata_record(locale) %>
+<div class="gallery_item_blk" data-id="<%= jr.id %>">
   <%= image_tag(picture.image_file.thumb("140x140#").url) %>
+  <% unless obj.nil? %>
+    <div class="overlay-hover">
+      <% unless obj.title.blank? %>
+        <%= t('activerecord.attributes.selling_point_picture_metadatum.title') %>: <%= obj.title %>
+        <br/>
+      <% end %>
+      <% unless obj.alternative_text.blank? %>
+        <%= t('activerecord.attributes.selling_point_picture_metadatum.alternative_text') %>
+        : <%= obj.alternative_text %>
+        <br/>
+      <% end %>
+      <% unless obj.caption.blank? %>
+        <%= t('activerecord.attributes.selling_point_picture_metadatum.caption') %>: <%= obj.caption %>
+      <% end %>
+    </div>
+  <% end %>
   <%= yield if block_given? %>
   <div class="command_area">
+    <% if not obj.nil? %>
+      <%
+        if obj.persisted?
+          url = edit_polymorphic_path([:admin, obj], :spp_id => jr.id)
+        else
+          url = new_polymorphic_path([:admin, obj], :spp_id => jr.id)
+        end
+      %>
+      <%= link_to_dialog render_icon(:edit), url, {  }, title: Alchemy.t(:edit_image_properties) %>
+    <% end %>
     <div class="destroy">
       <i class="fas fa-times fa-lg fa-fw"></i>
     </div>
   </div>
 </div>
+
+
+
+
+

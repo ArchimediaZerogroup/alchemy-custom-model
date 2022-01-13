@@ -371,3 +371,23 @@
 
   }
 }
+
+
+.gallery_item_blk {
+  .overlay-hover {
+    display: none;
+    position: absolute;
+    padding: 5px;
+    top: 0;
+    left: 0;
+    color: white;
+    background: rgba( #000, .4 );
+    width: 100%;
+    height: 100%;
+  }
+  &:hover {
+    .overlay-hover {
+      display: block;
+    }
+  }
+}
